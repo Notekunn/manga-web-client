@@ -1,28 +1,20 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import logo from './logo.svg'
+import Suggest from './components/Suggest'
+import TopBar from './components/TopBar'
 //https://i.imgur.com/BY4mD0j.png
 function App() {
   return (
-    <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-      <div className="md:flex">
-        <div className="md:flex-shrink-0">
-          <img
-            className="h-48 w-full object-cover md:h-full md:w-48"
-            src="https://i.imgur.com/BY4mD0j.png"
-            alt="Man looking at item at a store"
-          />
+    <div>
+      <TopBar />
+      <Suggest />
+      <div className="flex container justify-center min-h-screen">
+        <div className="bg-rose-300 flex w-2/3">
+          <h1 className="m-auto">Truyen tranh</h1>
         </div>
-        <div className="p-8">
-          <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-            Case study
-          </div>
-          <a className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">
-            Finding customers for your new business
-          </a>
-          <p className="mt-2 text-gray-500">
-            Getting a new business off the ground is a lot of hard work. Here are five ideas you can
-            use to find your first customers.
-          </p>
+        <div className="bg-violet-700 flex flex-col w-1/3">
+          <div className="flex-1 bg-rose-100">A</div>
+          <div className="flex-1 from-purple-800">B</div>
         </div>
       </div>
     </div>
