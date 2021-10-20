@@ -1,13 +1,16 @@
-import React from 'react'
-import { AiOutlineClockCircle } from 'react-icons/ai'
+import React, { ReactChild } from 'react'
 export interface MangaCardProps {
   name: string
   chapterName: string
   lastUpdated: Date
   coverURL: string
   className?: string
+  children?: ReactChild
+  size?: MangaCardSize
 }
-const formatTimeDiff = (start: Date, end: Date): string => {
+export type ChildMangaCardProps = RemoveProps<MangaCardProps, 'coverURL' | 'children' | 'size'>
+
+export const formatTimeDiff = (start: Date, end: Date): string => {
   const second = Math.floor((end.getTime() - start.getTime()) / 1000)
   if (second < 60) return 'vừa đây'
   const minutes = Math.floor(second / 60)
@@ -25,12 +28,14 @@ const formatTimeDiff = (start: Date, end: Date): string => {
   const year = Math.floor(month / 12)
   return `${year} năm trước`
 }
-export default function MangaCard(props: MangaCardProps) {
-  const { name, chapterName, lastUpdated, coverURL, className = '' } = props
+function MangaCard(props: MangaCardProps) {
+  const { coverURL, className = '', size } = props
   return (
     <div className={`py-4 m-2 ${className}`}>
       <div
-        className="bg-white h-16rem w-12rem flex  justify-center items-end mx-auto"
+        className={`bg-white flex justify-center items-end mx-auto h-${size?.height || '16rem'} w-${
+          size?.width || '12rem'
+        }`}
         style={{
           backgroundImage: `url(${coverURL})`,
           backgroundRepeat: 'no-repeat',
@@ -38,19 +43,27 @@ export default function MangaCard(props: MangaCardProps) {
           backgroundPosition: 'center',
         }}
       >
-        <div className="w-full p-1 flex-1 bg-opacity-80 bg-gray-700">
-          <h3 className="text-white text-md">{name}</h3>
-          <div className="flex justify-between items-center">
-            <div className="text-white text-sm">{chapterName}</div>
-            <div className="text-white text-sm flex items-center justify-end">
-              <div>
-                <AiOutlineClockCircle color="white" className="min-w-full" />
-              </div>
-              <span>{formatTimeDiff(lastUpdated, new Date())}</span>
-            </div>
-          </div>
-        </div>
+        {props.children}
       </div>
     </div>
   )
+}
+interface MangaCardSize {
+  width?: string
+  height?: string
+}
+export const widthMangaCard = (
+  Component: React.ComponentType<ChildMangaCardProps>,
+  size?: MangaCardSize
+) => {
+  class NewMangaCard extends React.Component<MangaCardProps> {
+    render() {
+      return (
+        <MangaCard size={size} {...this.props}>
+          <Component {...this.props} />
+        </MangaCard>
+      )
+    }
+  }
+  return NewMangaCard
 }

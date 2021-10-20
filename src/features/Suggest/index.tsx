@@ -1,5 +1,5 @@
 import React from 'react'
-import MangaCard from '../MangaCard'
+import { SuggestManga } from '../../components/MangaCard/SuggestManga'
 import './index.css'
 export default function Suggest() {
   return (
@@ -11,13 +11,16 @@ export default function Suggest() {
         {Array(6)
           .fill(1)
           .map((e, i) => (
-            <MangaCard
-              name="Cậu vàng ham ăn"
+            <SuggestManga
+              name={
+                'Cậu vàng ' +
+                ['ngốc nghếch', 'đáng yêu', 'ham ăn', 'ham chơi'][Math.floor(Math.random() * 4)]
+              }
               chapterName={`Chapter ${100 + i}`}
               lastUpdated={new Date(2021, 9, 2)}
-              coverURL="http://st.imageinstant.net/data/comics/220/cao-dang-linh-hon.jpg"
+              coverURL="http://st.imageinstant.net/data/comics/174/toi-la-tho-san-co-ki-nang-tu-sat-cap-sss-288.jpg"
               key={i}
-            />
+            ></SuggestManga>
           ))}
       </div>
       <div className="flex justify-between items-center mx-auto">

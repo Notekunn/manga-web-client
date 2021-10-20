@@ -12,12 +12,14 @@ module.exports = {
     },
     height: {
       '12rem': '12rem',
-      '220px': '220px',
+      '12.5rem': '12.5rem',
+      '10rem': '10rem',
       '16rem': '16rem',
     },
     width: {
       '12rem': '12rem',
       '16rem': '16rem',
+      '10rem': '10rem',
       '2/3': '66.666667%',
       '1/3': '33.333333%',
     },
