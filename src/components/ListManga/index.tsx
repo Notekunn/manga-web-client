@@ -1,5 +1,5 @@
 import React from 'react'
-import { MiniManga } from '../../components/MangaCard/MiniManga'
+import { MiniManga } from '../MangaCard/SmallMangaCard'
 
 export default function ListManga() {
   return (

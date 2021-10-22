@@ -6,9 +6,8 @@ export interface MangaCardProps {
   coverURL: string
   className?: string
   children?: ReactChild
-  size?: MangaCardSize
 }
-export type ChildMangaCardProps = RemoveProps<MangaCardProps, 'coverURL' | 'children' | 'size'>
+export type ChildMangaCardProps = RemoveProps<MangaCardProps, 'coverURL' | 'children'>
 
 export const formatTimeDiff = (start: Date, end: Date): string => {
   const second = Math.floor((end.getTime() - start.getTime()) / 1000)
@@ -28,19 +27,22 @@ export const formatTimeDiff = (start: Date, end: Date): string => {
   const year = Math.floor(month / 12)
   return `${year} năm trước`
 }
-function MangaCard(props: MangaCardProps) {
+interface PropSize {
+  size: MangaCardSize
+}
+function MangaCard(props: MangaCardProps & PropSize) {
   const { coverURL, className = '', size } = props
   return (
     <div className={`py-4 m-2 ${className}`}>
       <div
-        className={`bg-white flex justify-center items-end mx-auto h-${size?.height || '16rem'} w-${
-          size?.width || '12rem'
-        }`}
+        className="bg-white flex justify-center items-end mx-auto"
         style={{
           backgroundImage: `url(${coverURL})`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          height: size === 'large' ? '16rem' : '12.5rem',
+          width: size === 'large' ? '12rem' : '10rem',
         }}
       >
         {props.children}
@@ -48,18 +50,15 @@ function MangaCard(props: MangaCardProps) {
     </div>
   )
 }
-interface MangaCardSize {
-  width?: string
-  height?: string
-}
+type MangaCardSize = 'large' | 'small'
 export const widthMangaCard = (
   Component: React.ComponentType<ChildMangaCardProps>,
-  size?: MangaCardSize
+  sizeCard: MangaCardSize = 'large'
 ) => {
   class NewMangaCard extends React.Component<MangaCardProps> {
     render() {
       return (
-        <MangaCard size={size} {...this.props}>
+        <MangaCard {...this.props} size={sizeCard}>
           <Component {...this.props} />
         </MangaCard>
       )

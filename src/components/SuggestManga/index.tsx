@@ -1,7 +1,7 @@
 import React from 'react'
-import { SuggestManga } from '../../components/MangaCard/SuggestManga'
+import { SuggestMangaCard } from '../MangaCard/SuggestMangaCard'
 import './index.css'
-export default function Suggest() {
+export default function SuggestManga() {
   return (
     <div className="flex flex-col">
       <h1 className="flex-1 flex items-start">
@@ -11,7 +11,7 @@ export default function Suggest() {
         {Array(6)
           .fill(1)
           .map((e, i) => (
-            <SuggestManga
+            <SuggestMangaCard
               name={
                 'Cậu vàng ' +
                 ['ngốc nghếch', 'đáng yêu', 'ham ăn', 'ham chơi'][Math.floor(Math.random() * 4)]
@@ -20,7 +20,7 @@ export default function Suggest() {
               lastUpdated={new Date(2021, 9, 2)}
               coverURL="http://st.imageinstant.net/data/comics/174/toi-la-tho-san-co-ki-nang-tu-sat-cap-sss-288.jpg"
               key={i}
-            ></SuggestManga>
+            ></SuggestMangaCard>
           ))}
       </div>
       <div className="flex justify-between items-center mx-auto">

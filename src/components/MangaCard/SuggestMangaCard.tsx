@@ -2,7 +2,7 @@ import React from 'react'
 import { formatTimeDiff, widthMangaCard } from '.'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 
-export const SuggestManga = widthMangaCard((props) => {
+export const SuggestMangaCard = widthMangaCard((props) => {
   const { chapterName, name, lastUpdated } = props
   return (
     <div className="w-full p-1 flex-1 bg-opacity-80 bg-gray-700">
