@@ -1,7 +1,7 @@
 import React from 'react'
 import { formatNumber } from '../../../utils/common'
 export interface MangaItemProps
-  extends Pick<Manga, 'name' | 'coverURL' | 'lastChapter' | 'totalViews'> {
+  extends Pick<Manga, 'name' | 'coverURL' | 'lastChapter' | 'viewCount'> {
   order: number
 }
 const topColor = (order: number): string => {
@@ -11,7 +11,7 @@ const topColor = (order: number): string => {
   return '#3b3b3b'
 }
 export const MangaItem: React.FC<MangaItemProps> = (props) => {
-  const { name, coverURL, lastChapter, totalViews, order } = props
+  const { name, coverURL, lastChapter, viewCount, order } = props
   return (
     <div
       className="flex border-b-[1px] p-2 border-solid border-gray-400 items-center"
@@ -32,7 +32,7 @@ export const MangaItem: React.FC<MangaItemProps> = (props) => {
         <span className="text-black font-bold">{name}</span>
         <div className="flex justify-between">
           <span className="text-gray-700">{lastChapter}</span>
-          <span className="text-sm italic">{formatNumber(totalViews)}</span>
+          <span className="text-sm italic">{formatNumber(viewCount)}</span>
         </div>
       </div>
     </div>

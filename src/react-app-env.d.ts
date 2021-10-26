@@ -6,7 +6,18 @@ declare interface Manga {
   coverURL: string
   name: string
   lastChapter: string
-  totalViews: number
+  viewCount: number
   lastReadChapter?: string
   lastUpdated: Date
 }
+
+declare interface Chapter {
+  manga?: Manga
+  chapterName: string
+  chapterFullName?: string
+  content?: string
+  viewCount: number
+  lastUpdated: Date
+}
+
+type Nullable<T> = T | null

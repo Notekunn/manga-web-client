@@ -1,15 +1,13 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react'
-import ListManga from '../components/ListManga'
+import ListManga from '../features/ListManga/components'
 import SuggestManga from '../components/SuggestManga'
 import { SubscribeManga } from '../features/SubscribeManga/components'
 import { TopManga } from '../features/TopManga/components'
-//https://i.imgur.com/BY4mD0j.png
-function App() {
+
+function HomePage() {
   return (
     <>
       <SuggestManga />
-      <div className="flex justify-center min-h-screen">
+      <div className="flex justify-center min-h-screen bg-white w-4/5 mx-auto">
         <div className="flex w-2/3 flex-col">
           <ListManga />
         </div>
@@ -87,4 +85,4 @@ function App() {
   )
 }
 
-export default App
+export default HomePage

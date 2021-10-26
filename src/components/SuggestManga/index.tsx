@@ -3,7 +3,7 @@ import { SuggestMangaCard } from '../MangaCard/SuggestMangaCard'
 import './index.css'
 export default function SuggestManga() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-white">
       <h1 className="flex-1 flex items-start">
         <span className="p-3 text-lg text-lightBlue-600">Truyện đề cử</span>
       </h1>
