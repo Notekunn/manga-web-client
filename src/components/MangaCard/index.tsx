@@ -6,6 +6,7 @@ export interface MangaCardProps {
   coverURL: string
   className?: string
   children?: ReactChild
+  onClick?: () => void
 }
 export type ChildMangaCardProps = RemoveProps<MangaCardProps, 'coverURL' | 'children'>
 
@@ -15,7 +16,7 @@ interface PropSize {
 function MangaCard(props: MangaCardProps & PropSize) {
   const { coverURL, className = '', size } = props
   return (
-    <div className={`py-4 m-2 ${className}`}>
+    <div className={`py-4 m-2 ${className}`} onClick={props.onClick}>
       <div
         className="bg-white flex justify-center items-end mx-auto"
         style={{

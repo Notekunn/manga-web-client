@@ -49,13 +49,13 @@ export default function MangaInfo() {
             <span className="mx-2">/</span>
           </li>
           <li>
-            <Link to={'/'}>Thể loại</Link>
+            <Link to={'/the-loai'}>Thể loại</Link>
           </li>
           <li>
             <span className="mx-2">/</span>
           </li>
           <li>
-            <Link to={'/'}>Tên truyện</Link>
+            <Link to={'#'}>{name}</Link>
           </li>
         </ol>
       </nav>

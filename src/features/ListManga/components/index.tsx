@@ -2,11 +2,12 @@ import React from 'react'
 import { MiniManga } from '../../../components/MangaCard/SmallMangaCard'
 import { useQuery } from '@apollo/client'
 import { ApolloMangaList, fetchListManga } from '../listMangaAction'
+import { useHistory } from 'react-router'
 
 export default function ListManga() {
+  const history = useHistory()
   const { data, loading } = useQuery<ApolloMangaList>(fetchListManga)
   if (loading) return <p>Loading...</p>
-  console.log(data)
   return (
     <div className="flex flex-col">
       <div className="flex-1 flex items-start">
@@ -21,6 +22,7 @@ export default function ListManga() {
             coverURL={item.coverURL}
             lastUpdated={item.lastUpdated}
             className={'flex-shrink'}
+            onClick={() => history.push(`/truyen-tranh/${item.slug}`)}
           ></MiniManga>
         ))}
       </div>
