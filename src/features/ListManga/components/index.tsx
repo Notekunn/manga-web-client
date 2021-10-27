@@ -13,7 +13,7 @@ export default function ListManga() {
       <div className="flex-1 flex items-start">
         <span className="pt-3 pl-3 text-lg text-lightBlue-600">Truyện mới cập nhật</span>
       </div>
-      <div className="flex flex-wrap justify-between px-3 items-start">
+      <div className="grid grid-cols-4 gap-x-2 px-4">
         {data?.mangas.map((item, i) => (
           <MiniManga
             chapterName={item.chapters[0]?.chapterName}

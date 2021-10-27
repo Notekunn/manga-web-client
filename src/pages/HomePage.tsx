@@ -5,9 +5,9 @@ import { TopManga } from '../features/TopManga/components'
 
 function HomePage() {
   return (
-    <>
+    <div className="bg-white w-4/5 mx-auto">
       <SuggestManga />
-      <div className="flex justify-center min-h-screen bg-white w-4/5 mx-auto">
+      <div className="flex justify-center min-h-screen">
         <div className="flex w-2/3 flex-col">
           <ListManga />
         </div>
@@ -81,7 +81,7 @@ function HomePage() {
           <TopManga />
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

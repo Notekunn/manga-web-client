@@ -8,7 +8,7 @@ export default function SuggestManga() {
         <span className="p-3 text-lg text-lightBlue-600">Truyện đề cử</span>
       </h1>
       <div className="flex justify-center">
-        {Array(6)
+        {Array(5)
           .fill(1)
           .map((e, i) => (
             <SuggestMangaCard
