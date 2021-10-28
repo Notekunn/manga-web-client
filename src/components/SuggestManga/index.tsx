@@ -16,7 +16,7 @@ export default function SuggestManga() {
                 'Cậu vàng ' +
                 ['ngốc nghếch', 'đáng yêu', 'ham ăn', 'ham chơi'][Math.floor(Math.random() * 4)]
               }
-              chapterName={`Chapter ${100 + i}`}
+              chapterName={`${100 + i}`}
               lastUpdated={new Date(2021, 9, 2)}
               coverURL="http://st.imageinstant.net/data/comics/174/toi-la-tho-san-co-ki-nang-tu-sat-cap-sss-288.jpg"
               key={i}
