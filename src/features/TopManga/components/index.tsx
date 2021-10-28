@@ -1,18 +1,32 @@
+import { useQuery } from '@apollo/client'
 import React, { useState } from 'react'
-import { TOP_ONE, TOP_THREE, TOP_TWO } from '../../../constants/TopManga'
+import { FETCH_TOP_MANGA, TopMangaData, TopMangaVariable } from '../action'
 import { TopMangaHeader } from './Header'
-import type { MangaItemProps } from './MangaItem'
-import { MangaList } from './MangaList'
+import { MangaItem } from './MangaItem'
 export interface TopMangaProps {}
 
 export const TopManga: React.FC<TopMangaProps> = (props) => {
   const [activeTab, setActiveTab] = useState<number>(1)
+  const { data } = useQuery<TopMangaData, TopMangaVariable>(FETCH_TOP_MANGA, {
+    variables: {
+      type: activeTab === 1 ? 'DATE' : activeTab === 2 ? 'WEEK' : 'ALL',
+    },
+  })
   return (
     <div className="p-2 flex flex-col">
       <TopMangaHeader activeId={activeTab} changeActiveTab={setActiveTab} />
-      <MangaList items={TOP_ONE} isActive={activeTab === 1} />
-      <MangaList items={TOP_TWO} isActive={activeTab === 2} />
-      <MangaList items={TOP_THREE} isActive={activeTab === 3} />
+      <div className="flex flex-col">
+        {data?.topManga.map((e, i) => (
+          <MangaItem
+            lastChapter={e.manga.chapters[0]?.chapterName}
+            coverURL={e.manga.coverURL}
+            name={e.manga.name}
+            viewCount={e.view}
+            order={i + 1}
+            key={i}
+          />
+        ))}
+      </div>
     </div>
   )
 }

@@ -21,6 +21,8 @@ export interface ApolloMangaList {
     Manga & {
       chapters: Chapter[]
       slug: string
+      name: string
+      coverURL: string
     }
   >
 }
