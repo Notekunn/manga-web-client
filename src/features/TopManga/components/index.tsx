@@ -1,11 +1,11 @@
 import { useQuery } from '@apollo/client'
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import { FETCH_TOP_MANGA, TopMangaData, TopMangaVariable } from '../action'
 import { TopMangaHeader } from './Header'
 import { MangaItem } from './MangaItem'
 export interface TopMangaProps {}
 
-export const TopManga: React.FC<TopMangaProps> = (props) => {
+export const TopManga: React.FC<TopMangaProps> = memo(() => {
   const [activeTab, setActiveTab] = useState<number>(1)
   const { data } = useQuery<TopMangaData, TopMangaVariable>(FETCH_TOP_MANGA, {
     variables: {
@@ -29,4 +29,4 @@ export const TopManga: React.FC<TopMangaProps> = (props) => {
       </div>
     </div>
   )
-}
+})
