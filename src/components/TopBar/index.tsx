@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { HiOutlineSearch } from 'react-icons/hi'
-
+import { Link } from 'react-router-dom'
+import appContext from '../../app/context'
 export default function TopBar() {
+  const context = useContext(appContext)
   return (
     <div className="flex w-full bg-rose-500 justify-between align-center">
       <ul className="flex justify-between p-2 align-baseline list-none">
@@ -21,8 +23,12 @@ export default function TopBar() {
         </div>
       </div>
       <ul className="flex justify-between p-2 mx-2 align-baseline list-none">
-        <li className="p-2 flex items-center">Đăng nhập</li>
-        <li className="p-2 flex items-center">Đăng xuất</li>
+        {context.isLogin && <li className="p-2 flex items-center">Đăng xuất</li>}
+        {!context.isLogin && (
+          <li className="p-2 flex items-center">
+            <Link to={'/auth/login'}>Đăng nhập</Link>
+          </li>
+        )}
         <li className="p-2 flex items-center">OK</li>
       </ul>
     </div>

@@ -4,13 +4,16 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { ApolloProvider } from '@apollo/client'
+import { AppProvider, appVar } from './app/context'
 import apolloClient from './app/apolloClient'
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={apolloClient}>
-      <App />
-    </ApolloProvider>
+    <AppProvider value={appVar}>
+      <ApolloProvider client={apolloClient}>
+        <App />
+      </ApolloProvider>
+    </AppProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )
