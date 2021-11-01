@@ -4,6 +4,7 @@ import TopBar from './components/TopBar'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 const HomePage = React.lazy(() => import('./pages/HomePage'))
 const MangaInfo = React.lazy(() => import('./features/Manga/pages/MangaInfo'))
+const LoginPage = React.lazy(() => import('./features/Auth/pages/LoginPage'))
 function App() {
   return (
     <Suspense fallback={<p>Loading...</p>}>
@@ -16,6 +17,9 @@ function App() {
             </Route>
             <Route path="/truyen-tranh/:slug" exact>
               <MangaInfo />
+            </Route>
+            <Route path="/auth/login" exact>
+              <LoginPage />
             </Route>
             <Route path="/">
               <HomePage />

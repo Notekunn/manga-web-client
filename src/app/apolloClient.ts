@@ -10,16 +10,23 @@ const httpLink = createHttpLink({
 //     cartItems: [ID!]!
 //   }
 // `
-const authLink = setContext((_, { header }) => {
+const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('token')
   return {
-    ...header,
-    Authorization: token ? `Bearer ${token}` : '',
+    headers: {
+      ...headers,
+      Authorization: token ? `Bearer ${token}` : '',
+    },
   }
 })
 const client = new ApolloClient<NormalizedCacheObject>({
   link: authLink.concat(httpLink),
   cache,
+  defaultOptions: {
+    mutate: {
+      errorPolicy: 'all',
+    },
+  },
   // typeDefs,
 })
 
