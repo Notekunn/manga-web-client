@@ -13,7 +13,7 @@ export const TopManga: React.FC<TopMangaProps> = memo(() => {
     },
   })
   return (
-    <div className="p-2 flex flex-col">
+    <div className="p-2 flex flex-col flex-shrink-0">
       <TopMangaHeader activeId={activeTab} changeActiveTab={setActiveTab} />
       <div className="flex flex-col">
         {data?.topManga.map((e, i) => (
