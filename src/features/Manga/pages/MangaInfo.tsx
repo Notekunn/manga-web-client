@@ -31,6 +31,7 @@ export default function MangaInfo() {
       categories,
       chapters,
       coverURL,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       groups,
       lastUpdated,
       name,
