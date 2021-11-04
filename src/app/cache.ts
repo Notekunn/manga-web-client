@@ -1,4 +1,5 @@
 import { InMemoryCache, gql, makeVar } from '@apollo/client'
+import localDB from './localDB'
 export const typeDefs = gql`
   extend type Query {
     isLoggedIn: Boolean!
@@ -7,8 +8,16 @@ export const typeDefs = gql`
 `
 // reactive variables
 export const isLoggedInVar = makeVar<boolean>(!!localStorage.getItem('token'))
-const storagedVisitedChapters = localStorage.getItem('visited-chapter') || '[]'
-export const visitedChaptersVar = makeVar<number[]>(JSON.parse(storagedVisitedChapters))
+interface LastVisitedChapter {
+  chapterId: number
+}
+export const visitedChapters = localDB.createDatabase<LastVisitedChapter>('visited_chapters')
+
+interface LastVisitedChapterDB {
+  mangaId: number
+  lastReadChapter?: string
+}
+export const lastReadTable = localDB.createDatabase<LastVisitedChapterDB>('last_chapter')
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -21,10 +30,20 @@ const cache = new InMemoryCache({
         },
         visitedChapters: {
           read() {
-            return visitedChaptersVar()
+            return visitedChapters.select()
           },
         },
         launches: {},
+      },
+    },
+    Manga: {
+      fields: {
+        lastReadChapter: {
+          read(_, { readField, cache }) {
+            console.log(readField('id'))
+            console.log(cache)
+          },
+        },
       },
     },
   },

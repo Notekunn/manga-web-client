@@ -10,6 +10,7 @@ export const FETCH_SUBSCRIBE_MANGA = gql`
       lastChapter {
         chapterName
       }
+      lastReadChapter @client
     }
   }
 `
