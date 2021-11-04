@@ -1,6 +1,6 @@
 import { ApolloClient, createHttpLink, NormalizedCacheObject } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
-import cache from './cache'
+import cache, { typeDefs } from './cache'
 const httpLink = createHttpLink({
   uri: process.env.API_SERVER_URL || 'http://localhost:4000',
 })
@@ -21,7 +21,7 @@ const client = new ApolloClient<NormalizedCacheObject>({
       errorPolicy: 'all',
     },
   },
-  // typeDefs,
+  typeDefs,
 })
 
 export default client

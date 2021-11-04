@@ -1,24 +1,26 @@
 import React from 'react'
-import { SubscribeMangaItem, SubscribeMangaItemProps } from './SubscribeMangaItem'
+import { SubscribeMangaItem } from './SubscribeMangaItem'
+import { FETCH_SUBSCRIBE_MANGA, FollowedMangaData } from '../action'
+import { useQuery } from '@apollo/client'
 export interface SubscribeMangaProps {}
-const DATA_SUBSCRIBE: SubscribeMangaItemProps[] = Array.from(Array(5).keys()).map((e) => {
-  return {
-    coverURL: 'http://st.imageinstant.net/data/comics/32/vo-luyen-dinh-phong.jpg',
-    name: 'Võ luyện đỉnh phong',
-    lastChapter: 'Chapter ' + (e + 123),
-    lastReadChapter: 'Chapter 122',
-    lastUpdated: new Date(2021, 9, 22, 23),
-  }
-})
-export const SubscribeManga: React.FC<SubscribeMangaProps> = () => {
+export const SubscribeManga: React.FC<SubscribeMangaProps> = React.memo(() => {
+  const { loading, data } = useQuery<FollowedMangaData>(FETCH_SUBSCRIBE_MANGA)
+  if (loading || data?.followedManga.length === 0) return null
   return (
     <div className="p-2 flex flex-col mb-4">
       <span className="pt-3 pl-3 text-lg text-lightBlue-600 text-left border-b-2 border-b-gray-500">
         Truyện mới cập nhật
       </span>
-      {DATA_SUBSCRIBE.map((item) => (
-        <SubscribeMangaItem {...item} />
+      {data?.followedManga.map((item, i) => (
+        <SubscribeMangaItem
+          coverURL={item.coverURL}
+          lastChapter={item.lastChapter?.chapterName || ''}
+          lastUpdated={new Date(item.lastUpdated)}
+          lastReadChapter={'123'}
+          name={item.name}
+          key={`follow-manga-${i}`}
+        />
       ))}
     </div>
   )
-}
+})

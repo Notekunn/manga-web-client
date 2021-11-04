@@ -1,9 +1,12 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { HiOutlineSearch } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
-import appContext from '../../app/context'
+import { useQuery } from '@apollo/client'
+import { CheckLoginData, CHECK_LOGIN } from '../../features/Auth/action'
 export default function TopBar() {
-  const context = useContext(appContext)
+  const { data, loading } = useQuery<CheckLoginData>(CHECK_LOGIN)
+  if (loading || !data) return null
+  const { isLoggedIn } = data
   return (
     <div className="flex w-full bg-rose-500 justify-between align-center">
       <ul className="flex justify-between p-2 align-baseline list-none">
@@ -23,8 +26,8 @@ export default function TopBar() {
         </div>
       </div>
       <ul className="flex justify-between p-2 mx-2 align-baseline list-none">
-        {context.isLogin && <li className="p-2 flex items-center">Đăng xuất</li>}
-        {!context.isLogin && (
+        {isLoggedIn && <li className="p-2 flex items-center">Đăng xuất</li>}
+        {!isLoggedIn && (
           <li className="p-2 flex items-center">
             <Link to={'/auth/login'}>Đăng nhập</Link>
           </li>

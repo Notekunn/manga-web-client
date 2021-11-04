@@ -9,6 +9,11 @@ export const LOGIN_MUTATION = gql`
     }
   }
 `
+export const CHECK_LOGIN = gql`
+  query CheckLogin {
+    isLoggedIn @client
+  }
+`
 export interface LoginData {
   login: {
     token: string
@@ -22,4 +27,8 @@ export interface LoginVariable {
     username: string
     password: string
   }
+}
+
+export interface CheckLoginData {
+  isLoggedIn: boolean
 }
