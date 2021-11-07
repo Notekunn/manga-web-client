@@ -1,7 +1,7 @@
-import ListManga from '../features/ListManga/components'
-import SuggestManga from '../components/SuggestManga'
-import { SubscribeManga } from '../features/SubscribeManga/components'
-import { TopManga } from '../features/TopManga/components'
+import ListManga from '@features/ListManga/components'
+import SuggestManga from '@components/SuggestManga'
+import { SubscribeManga } from '@features/SubscribeManga/components'
+import { TopManga } from '@features/TopManga/components'
 
 function HomePage() {
   return (

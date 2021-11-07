@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Suspense } from 'react'
-import TopBar from './components/TopBar'
+import TopBar from '@components/TopBar'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-const HomePage = React.lazy(() => import('./pages/HomePage'))
-const MangaInfo = React.lazy(() => import('./features/Manga/pages/MangaInfo'))
-const LoginPage = React.lazy(() => import('./features/Auth/pages/LoginPage'))
+const HomePage = React.lazy(() => import('@pages/HomePage'))
+const MangaInfo = React.lazy(() => import('@features/Manga/pages/MangaInfo'))
+const LoginPage = React.lazy(() => import('@features/Auth/pages/LoginPage'))
 function App() {
   return (
     <Suspense fallback={<p>Loading...</p>}>

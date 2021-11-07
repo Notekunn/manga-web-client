@@ -2,7 +2,7 @@ import React from 'react'
 import { HiOutlineSearch } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
-import { CheckLoginData, CHECK_LOGIN } from '../../features/Auth/action'
+import { CheckLoginData, CHECK_LOGIN } from '@features/Auth/action'
 export default function TopBar() {
   const { data, loading } = useQuery<CheckLoginData>(CHECK_LOGIN)
   if (loading || !data) return null

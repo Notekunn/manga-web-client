@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatTimeDiff } from '../../../utils/common'
+import { formatTimeDiff } from '@utils/common'
 export interface SubscribeMangaItemProps
   extends Pick<Manga, 'name' | 'coverURL' | 'lastChapter' | 'lastReadChapter' | 'lastUpdated'> {}
 export const SubscribeMangaItem: React.FC<SubscribeMangaItemProps> = (props) => {

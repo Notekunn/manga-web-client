@@ -1,7 +1,7 @@
 import React from 'react'
 import { widthMangaCard } from '.'
 import { AiOutlineClockCircle } from 'react-icons/ai'
-import { formatTimeDiff } from '../../utils/common'
+import { formatTimeDiff } from '@utils/common'
 
 export const SuggestMangaCard = widthMangaCard((props) => {
   const { chapterName, name, lastUpdated } = props

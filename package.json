@@ -49,6 +49,7 @@
   "devDependencies": {
     "@types/react-router-dom": "^5.3.1",
     "autoprefixer": "9",
+    "craco-alias": "^3.0.1",
     "cross-env": "^7.0.3",
     "faker": "^5.5.3",
     "postcss": "7",

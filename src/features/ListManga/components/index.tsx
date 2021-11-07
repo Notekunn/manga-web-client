@@ -1,5 +1,5 @@
 import React from 'react'
-import { MiniManga } from '../../../components/MangaCard/SmallMangaCard'
+import { MiniManga } from '@components/MangaCard/SmallMangaCard'
 import { useQuery } from '@apollo/client'
 import { ApolloMangaList, fetchListManga } from '../action'
 import { useHistory } from 'react-router'

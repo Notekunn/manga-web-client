@@ -4,7 +4,7 @@ import { useHistory } from 'react-router'
 import { FaLock } from 'react-icons/fa'
 import { useMutation } from '@apollo/client'
 import { LOGIN_MUTATION, LoginData, LoginVariable } from '../action'
-import { Loading } from '../../../components/Loading'
+import { Loading } from '@components/Loading'
 const LoginPage: React.FC<{}> = () => {
   const history = useHistory()
   // const routerQuery = new URLSearchParams(useLocation().search)

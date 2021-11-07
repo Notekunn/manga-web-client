@@ -1,14 +1,18 @@
 import React from 'react'
 import { useParams, useHistory } from 'react-router'
 import { Link } from 'react-router-dom'
-import { LabelTag } from '../../../components/LabelTag'
-import { FaUser, FaRss, FaTags, FaEye, FaHeart, FaListUl } from 'react-icons/fa'
-import { FiFileText } from 'react-icons/fi'
 import { useMutation, useQuery } from '@apollo/client'
 import { MangaInfoData, MangaInfoVariables, fetchMangaInfo } from '../action'
-import { SUBSCRIBE_MANGA, FollowMangaData, FollowMangaVariable } from '../../SubscribeManga/action'
-import { Loading } from '../../../components/Loading'
-import { TopManga } from '../../TopManga/components'
+import {
+  SUBSCRIBE_MANGA,
+  FollowMangaData,
+  FollowMangaVariable,
+} from '@features/SubscribeManga/action'
+import { Loading } from '@components/Loading'
+import { TopManga } from '@features/TopManga/components'
+import { LabelTag } from '@components/LabelTag'
+import { FaUser, FaRss, FaTags, FaEye, FaHeart, FaListUl } from 'react-icons/fa'
+import { FiFileText } from 'react-icons/fi'
 interface RouteParameter {
   slug: string
 }

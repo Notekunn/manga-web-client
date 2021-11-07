@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatNumber } from '../../../utils/common'
+import { formatNumber } from '@utils/common'
 export interface MangaItemProps
   extends Pick<Manga, 'name' | 'coverURL' | 'lastChapter' | 'viewCount'> {
   order: number
