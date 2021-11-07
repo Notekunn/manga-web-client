@@ -30,6 +30,7 @@ export const fetchMangaInfo = gql`
         viewCount
         lastUpdated
       }
+      isFollowing
     }
   }
 `
@@ -37,6 +38,7 @@ export const fetchMangaInfo = gql`
 export interface MangaInfoData {
   manga: Nullable<
     Manga & {
+      id: string
       chapters: Chapter[]
       artist: {
         name: string
@@ -51,6 +53,7 @@ export interface MangaInfoData {
       }>
       status: string
       description?: string
+      isFollowing: boolean
     }
   >
 }

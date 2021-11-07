@@ -14,6 +14,12 @@ export const FETCH_SUBSCRIBE_MANGA = gql`
     }
   }
 `
+
+export const SUBSCRIBE_MANGA = gql`
+  mutation FollowManga($mangaId: Int!, $unfollow: Boolean) {
+    followManga(mangaId: $mangaId, unfollow: $unfollow)
+  }
+`
 export interface FollowedMangaData {
   followedManga: Array<{
     name: string
@@ -24,4 +30,13 @@ export interface FollowedMangaData {
       chapterName: string
     }
   }>
+}
+
+export interface FollowMangaData {
+  followManga: boolean
+}
+
+export interface FollowMangaVariable {
+  mangaId: number
+  unfollow: boolean
 }

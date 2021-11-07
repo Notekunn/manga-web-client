@@ -4,21 +4,23 @@ import { Link } from 'react-router-dom'
 import { LabelTag } from '../../../components/LabelTag'
 import { FaUser, FaRss, FaTags, FaEye, FaHeart, FaListUl } from 'react-icons/fa'
 import { FiFileText } from 'react-icons/fi'
-import { useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { MangaInfoData, MangaInfoVariables, fetchMangaInfo } from '../action'
+import { SUBSCRIBE_MANGA, FollowMangaData, FollowMangaVariable } from '../../SubscribeManga/action'
 import { Loading } from '../../../components/Loading'
 import { TopManga } from '../../TopManga/components'
 interface RouteParameter {
   slug: string
 }
-export default function MangaInfo() {
+const MangaInfo: React.FC<{}> = React.memo(() => {
   const history = useHistory()
   const { slug } = useParams<RouteParameter>()
-  const { data, loading } = useQuery<MangaInfoData, MangaInfoVariables>(fetchMangaInfo, {
+  const { data, loading, refetch } = useQuery<MangaInfoData, MangaInfoVariables>(fetchMangaInfo, {
     variables: {
       slug,
     },
   })
+  const [follow] = useMutation<FollowMangaData, FollowMangaVariable>(SUBSCRIBE_MANGA)
 
   if (loading) return <Loading />
   if (!data?.manga) {
@@ -27,6 +29,7 @@ export default function MangaInfo() {
   }
   const {
     manga: {
+      id,
       artist,
       categories,
       chapters,
@@ -38,6 +41,7 @@ export default function MangaInfo() {
       viewCount,
       description,
       status,
+      isFollowing,
     },
   } = data
   return (
@@ -116,11 +120,21 @@ export default function MangaInfo() {
               </dl>
               <div className="py-2">Xếp hạng 3.6/5 - 19823 đánh giá</div>
               <div className="flex">
-                <button className="p-2 bg-green-600 mr-2 rounded-md text-white flex items-center">
+                <button
+                  className="p-2 bg-green-600 mr-2 rounded-md text-white flex items-center"
+                  onClick={() =>
+                    follow({
+                      variables: {
+                        mangaId: parseInt(id),
+                        unfollow: isFollowing,
+                      },
+                    }).then(() => refetch())
+                  }
+                >
                   <div className="mr-1">
                     <FaHeart color="white" />
                   </div>
-                  Theo dõi
+                  {isFollowing ? 'Bỏ theo dõi' : 'Theo dõi'}
                 </button>
                 <button className="p-2 bg-yellow-600 mr-1 rounded-md text-white">Đọc từ đầu</button>
                 <button className="p-2 bg-yellow-600 mr-1 rounded-md text-white">
@@ -170,4 +184,6 @@ export default function MangaInfo() {
       </div>
     </div>
   )
-}
+})
+
+export default MangaInfo
