@@ -1,6 +1,6 @@
 li.active-tab {
-    @apply bg-white border-[1px] border-solid border-t-2 border-t-teal-800
+    @apply cursor-pointer bg-white border-[1px] border-solid border-t-2 border-t-teal-800
 }
 li.disabled-tab {
-    @apply bg-coolGray-200 border-none border-gray-500
+    @apply cursor-pointer bg-coolGray-200 border-none border-gray-500
 }
