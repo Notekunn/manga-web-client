@@ -20,3 +20,14 @@ export const formatTimeDiff = (start: Date, end: Date): string => {
 export const formatNumber = (input: number): string => {
   return new Intl.NumberFormat('vn-VN').format(input)
 }
+
+export const randomNumber = (min: number, max?: number): number => {
+  if (!max) {
+    max = min
+    min = 0
+  }
+  return Math.floor(Math.random() * (max - min) + min)
+}
+export const randomArray = <T>(input: T[]): T => {
+  return input[randomNumber(input.length)]
+}
