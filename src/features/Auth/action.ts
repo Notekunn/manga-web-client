@@ -1,7 +1,8 @@
 import { gql } from '@apollo/client'
+import { lastReadTable, visitedChapters } from '@app/cache'
 
 export const LOGIN_MUTATION = gql`
-  mutation Mutation($userInput: AuthInput!) {
+  mutation LoginMutation($userInput: AuthInput!) {
     login(userInput: $userInput) {
       token
       tokenExpiration
@@ -31,4 +32,10 @@ export interface LoginVariable {
 
 export interface CheckLoginData {
   isLoggedIn: boolean
+}
+
+export const logout = () => {
+  localStorage.removeItem('token')
+  visitedChapters.drop()
+  lastReadTable.drop()
 }

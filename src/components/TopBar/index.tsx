@@ -2,9 +2,9 @@ import React from 'react'
 import { HiOutlineSearch } from 'react-icons/hi'
 import { Link } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
-import { CheckLoginData, CHECK_LOGIN } from '@features/Auth/action'
+import { CheckLoginData, CHECK_LOGIN, logout } from '@features/Auth/action'
 export default function TopBar() {
-  const { data, loading } = useQuery<CheckLoginData>(CHECK_LOGIN)
+  const { data, loading, refetch } = useQuery<CheckLoginData>(CHECK_LOGIN)
   if (loading || !data) return null
   const { isLoggedIn } = data
   return (
@@ -26,7 +26,17 @@ export default function TopBar() {
         </div>
       </div>
       <ul className="flex justify-between p-2 mx-2 align-baseline list-none">
-        {isLoggedIn && <li className="p-2 flex items-center">Đăng xuất</li>}
+        {isLoggedIn && (
+          <li
+            className="p-2 flex items-center cursor-pointer"
+            onClick={() => {
+              logout()
+              refetch()
+            }}
+          >
+            Đăng xuất
+          </li>
+        )}
         {!isLoggedIn && (
           <li className="p-2 flex items-center">
             <Link to={'/auth/login'}>Đăng nhập</Link>
