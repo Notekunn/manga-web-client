@@ -6,7 +6,8 @@
             "@app/*": ["./app/*"],
             "@features/*": ["./features/*"],
             "@utils/*": ["./utils/*"],
-            "@pages/*": ["./pages/*"]
+            "@pages/*": ["./pages/*"],
+            "@constants/*": ["./constants/*"]
         }
     }
 }

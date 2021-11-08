@@ -1,4 +1,5 @@
 import React, { ReactChild } from 'react'
+import { cardSize } from '@constants/card'
 export interface MangaCardProps {
   name: string
   chapterName: string
@@ -13,10 +14,14 @@ export type ChildMangaCardProps = RemoveProps<MangaCardProps, 'coverURL' | 'chil
 interface PropSize {
   size: MangaCardSize
 }
-function MangaCard(props: MangaCardProps & PropSize) {
+const MangaCard = React.forwardRef<HTMLDivElement, MangaCardProps & PropSize>((props, ref) => {
   const { coverURL, className = '', size } = props
   return (
-    <div className={`py-4 m-2 ${className}`} onClick={props.onClick}>
+    <div
+      className={`py-4 mr-4 last:mr-0 flex-shrink-0 ${className}`}
+      onClick={props.onClick}
+      ref={ref}
+    >
       <div
         className="bg-white flex justify-center items-end mx-auto"
         style={{
@@ -24,15 +29,15 @@ function MangaCard(props: MangaCardProps & PropSize) {
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          height: size === 'large' ? '16rem' : '12.5rem',
-          width: size === 'large' ? '12rem' : '10rem',
+          height: cardSize[size][1] + 'rem',
+          width: cardSize[size][0] + 'rem',
         }}
       >
         {props.children}
       </div>
     </div>
   )
-}
+})
 type MangaCardSize = 'large' | 'small'
 export const widthMangaCard = (
   Component: React.ComponentType<ChildMangaCardProps>,
@@ -48,4 +53,17 @@ export const widthMangaCard = (
     }
   }
   return NewMangaCard
+}
+
+export const withMangaCardForwardRef = (
+  Component: React.FC<ChildMangaCardProps>,
+  sizeCard: MangaCardSize = 'large'
+) => {
+  return React.forwardRef<HTMLDivElement, MangaCardProps>((props: MangaCardProps, ref) => {
+    return (
+      <MangaCard {...props} size={sizeCard} ref={ref}>
+        <Component {...props} />
+      </MangaCard>
+    )
+  })
 }
