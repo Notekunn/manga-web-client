@@ -55,8 +55,9 @@ const SuggestManga: React.FC<{}> = React.memo(() => {
               chapterName={e.chapterName}
               lastUpdated={e.lastUpdated}
               coverURL={e.coverURL}
+              className={'mr-4 last:mr-0'}
               key={`suggest-manga-${i}`}
-            ></SuggestMangaCard>
+            />
           ))}
         </div>
       </div>

@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors')
+const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
   mode: 'jit',
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
@@ -9,6 +10,10 @@ module.exports = {
       ...colors,
       transparent: 'transparent',
       current: 'currentColor',
+    },
+    fontFamily: {
+      ...defaultTheme.fontFamily,
+      tahoma: 'Tahoma',
     },
   },
   variants: {
