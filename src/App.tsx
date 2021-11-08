@@ -4,6 +4,7 @@ import TopBar from '@components/TopBar'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 const HomePage = React.lazy(() => import('@pages/HomePage'))
 const MangaInfo = React.lazy(() => import('@features/Manga/pages/MangaInfo'))
+const ChapterInfo = React.lazy(() => import('@features/Chapter/pages/ChapterInfo'))
 const LoginPage = React.lazy(() => import('@features/Auth/pages/LoginPage'))
 function App() {
   return (
@@ -12,8 +13,8 @@ function App() {
         <div className="bg-black">
           <TopBar />
           <Switch>
-            <Route path="/truyen-tranh/:slug/chuong-:id" exact>
-              <div className="bg-white">Alo</div>
+            <Route path="/truyen-tranh/:slug/chuong-:chapterName" exact>
+              <ChapterInfo />
             </Route>
             <Route path="/truyen-tranh/:slug" exact>
               <MangaInfo />

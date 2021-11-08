@@ -31,3 +31,7 @@ export const randomNumber = (min: number, max?: number): number => {
 export const randomArray = <T>(input: T[]): T => {
   return input[randomNumber(input.length)]
 }
+
+export const makeArray = (n: number): number[] => {
+  return Array.from(Array(n).keys())
+}

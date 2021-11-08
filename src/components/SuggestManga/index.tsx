@@ -1,7 +1,6 @@
 import { randomArray } from '@utils/common'
 import React, { useEffect, useRef, useState } from 'react'
-import { SuggestMangaCard } from '../MangaCard/SuggestMangaCard'
-import './index.css'
+import { SuggestMangaCard } from './SuggestMangaCard'
 const SAMPLE_SUGGEST_MANGA = Array(25)
   .fill(1)
   .map((e, i) => ({
