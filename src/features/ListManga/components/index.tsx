@@ -5,7 +5,7 @@ import { ApolloMangaList, fetchListManga } from '../action'
 import { useHistory } from 'react-router'
 
 export default function ListManga() {
-  const history = useHistory()
+  // const history = useHistory()
   const { data, loading } = useQuery<ApolloMangaList>(fetchListManga)
   if (loading) return <p>Loading...</p>
   return (
@@ -21,7 +21,9 @@ export default function ListManga() {
             name={item.name}
             coverURL={item.coverURL}
             lastUpdated={item.lastUpdated}
-            onClick={() => history.push(`/truyen-tranh/${item.slug}`)}
+            // redirect={(path) => history.push(path)}
+            chapters={item.chapters}
+            slug={item.slug}
           />
         ))}
       </div>

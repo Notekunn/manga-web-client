@@ -35,3 +35,11 @@ export const randomArray = <T>(input: T[]): T => {
 export const makeArray = (n: number): number[] => {
   return Array.from(Array(n).keys())
 }
+
+export const resolveChapterPath = (slug: string, chapterName: string): string => {
+  return `/truyen-tranh/${slug}/chuong-${chapterName}`
+}
+
+export const resolveMangaPath = (slug: string): string => {
+  return `/truyen-tranh/${slug}/`
+}

@@ -9,8 +9,9 @@ export const fetchListManga = gql`
       lastUpdated
       coverURL
       slug
-      chapters(limit: 1) {
+      chapters(limit: 3) {
         chapterName
+        lastUpdated
       }
     }
   }
