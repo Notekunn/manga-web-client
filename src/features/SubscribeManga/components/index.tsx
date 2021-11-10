@@ -14,9 +14,9 @@ export const SubscribeManga: React.FC<SubscribeMangaProps> = React.memo(() => {
       {data?.followedManga.map((item, i) => (
         <SubscribeMangaItem
           coverURL={item.coverURL}
-          lastChapter={item.lastChapter?.chapterName || ''}
+          lastChapter={item.lastChapter?.chapterName}
           lastUpdated={new Date(item.lastUpdated)}
-          lastReadChapter={'123'}
+          lastReadChapter={item.lastReadChapter}
           name={item.name}
           key={`follow-manga-${i}`}
         />

@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from 'react'
 import { FaInfoCircle } from 'react-icons/fa'
-import { useHistory, useParams } from 'react-router'
+import { /* useHistory, */ useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import ChapterNavBar from '../components/ChapterNavBar'
 interface RouteParameter {
@@ -9,10 +9,13 @@ interface RouteParameter {
 }
 
 const ChapterInfo: React.FC<{}> = () => {
-  const history = useHistory()
-  const { slug, chapterName } = useParams<RouteParameter>()
+  // const history = useHistory()
+  const { /* slug, */ chapterName } = useParams<RouteParameter>()
   const [navShowing, setNavShowing] = useState(false)
   const ref = useRef<HTMLHeadingElement>(null)
+  // const onClick = () => {
+  //   history.push('./')
+  // }
   useLayoutEffect(() => {
     const onScroll = () => {
       const navPosition = ref.current?.getBoundingClientRect().top || Number.NEGATIVE_INFINITY

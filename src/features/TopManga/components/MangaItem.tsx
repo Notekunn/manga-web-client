@@ -1,8 +1,8 @@
 import React from 'react'
 import { formatNumber } from '@utils/common'
-export interface MangaItemProps
-  extends Pick<Manga, 'name' | 'coverURL' | 'lastChapter' | 'viewCount'> {
+export type MangaItemProps = Pick<Entity.Manga, 'name' | 'coverURL' | 'viewCount'> & {
   order: number
+  lastChapter?: string
 }
 const topColor = (order: number): string => {
   if (order === 1) return '#d35400'
@@ -31,7 +31,7 @@ export const MangaItem: React.FC<MangaItemProps> = (props) => {
       <div className="flex flex-col ml-4 flex-1 justify-center">
         <span className="text-black font-bold">{name}</span>
         <div className="flex justify-between">
-          <span className="text-gray-700">Chapter {lastChapter}</span>
+          <span className="text-gray-700">Chapter {lastChapter || '0'}</span>
           <span className="text-sm italic">{formatNumber(viewCount)}</span>
         </div>
       </div>

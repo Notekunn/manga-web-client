@@ -2,7 +2,7 @@ import React from 'react'
 import MangaItem from './MangaItem'
 import { useQuery } from '@apollo/client'
 import { ApolloMangaList, fetchListManga } from '../action'
-import { useHistory } from 'react-router'
+// import { useHistory } from 'react-router'
 
 export default function ListManga() {
   // const history = useHistory()

@@ -1,7 +1,11 @@
 import React from 'react'
 import { formatTimeDiff } from '@utils/common'
-export interface SubscribeMangaItemProps
-  extends Pick<Manga, 'name' | 'coverURL' | 'lastChapter' | 'lastReadChapter' | 'lastUpdated'> {}
+export type SubscribeMangaItemProps = Pick<
+  Entity.Manga,
+  'name' | 'coverURL' | 'lastReadChapter' | 'lastUpdated'
+> & {
+  lastChapter?: string
+}
 export const SubscribeMangaItem: React.FC<SubscribeMangaItemProps> = (props) => {
   const { name, coverURL, lastChapter, lastReadChapter, lastUpdated } = props
   return (

@@ -21,15 +21,10 @@ export const SUBSCRIBE_MANGA = gql`
   }
 `
 export interface FollowedMangaData {
-  followedManga: Array<{
-    name: string
-    coverURL: string
-    slug: string
-    lastUpdated: Date
-    lastChapter?: {
-      chapterName: string
-    }
-  }>
+  followedManga: Pick<
+    Entity.Manga,
+    'name' | 'coverURL' | 'slug' | 'lastUpdated' | 'lastChapter' | 'lastReadChapter'
+  >[]
 }
 
 export interface FollowMangaData {

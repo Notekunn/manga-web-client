@@ -1,15 +1,12 @@
-import React, { ReactChild } from 'react'
+import React from 'react'
 import { cardSize } from '@constants/card'
-export interface MangaCardProps {
-  name: string
+export type MangaCardProps = Pick<Entity.Manga, 'name' | 'lastUpdated' | 'coverURL'> & {
   chapterName: string
-  lastUpdated: Date
-  coverURL: string
   className?: string
-  children?: ReactChild
+  children?: React.ReactChild
   onClick?: () => void
 }
-export type ChildMangaCardProps = RemoveProps<MangaCardProps, 'coverURL' | 'children'>
+export type ChildMangaCardProps = RemoveProps<MangaCardProps, 'coverURL'>
 
 interface PropSize {
   size: MangaCardSize
@@ -35,21 +32,6 @@ const MangaCard = React.forwardRef<HTMLDivElement, MangaCardProps & PropSize>((p
   )
 })
 type MangaCardSize = 'large' | 'small'
-// export const widthMangaCard = (
-//   Component: React.ComponentType<ChildMangaCardProps>,
-//   sizeCard: MangaCardSize = 'large'
-// ) => {
-//   class NewMangaCard extends React.Component<MangaCardProps> {
-//     render() {
-//       return (
-//         <MangaCard {...this.props} size={sizeCard}>
-//           <Component {...this.props} />
-//         </MangaCard>
-//       )
-//     }
-//   }
-//   return NewMangaCard
-// }
 export const withMangaCard = (
   Component: React.ComponentType<ChildMangaCardProps>,
   sizeCard: MangaCardSize = 'large'

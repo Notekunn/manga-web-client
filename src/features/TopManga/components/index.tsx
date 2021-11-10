@@ -18,7 +18,7 @@ export const TopManga: React.FC<TopMangaProps> = memo(() => {
       <div className="flex flex-col">
         {data?.topManga.map((e, i) => (
           <MangaItem
-            lastChapter={e.manga.chapters[0]?.chapterName}
+            lastChapter={e.manga.lastChapter?.chapterName}
             coverURL={e.manga.coverURL}
             name={e.manga.name}
             viewCount={e.view}

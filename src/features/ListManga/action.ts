@@ -19,11 +19,16 @@ export const fetchListManga = gql`
 
 export interface ApolloMangaList {
   mangas: Array<
-    Manga & {
-      chapters: Chapter[]
-      slug: string
-      name: string
-      coverURL: string
-    }
+    Pick<
+      Entity.Manga,
+      | 'name'
+      | 'slug'
+      | 'coverURL'
+      | 'chapters'
+      | 'viewCount'
+      | 'lastChapter'
+      | 'lastReadChapter'
+      | 'lastUpdated'
+    >
   >
 }

@@ -5,7 +5,7 @@ export const FETCH_TOP_MANGA = gql`
     topManga(type: $type) {
       view
       manga {
-        chapters(limit: 1) {
+        lastChapter {
           chapterName
         }
         name
@@ -19,11 +19,7 @@ export const FETCH_TOP_MANGA = gql`
 export interface TopMangaData {
   topManga: Array<{
     view: number
-    manga: Pick<Manga, 'coverURL' | 'name' | 'lastUpdated'> & {
-      chapters: Array<{
-        chapterName: string
-      }>
-    }
+    manga: Pick<Entity.Manga, 'coverURL' | 'name' | 'lastUpdated' | 'lastChapter'>
   }>
 }
 export interface TopMangaVariable {

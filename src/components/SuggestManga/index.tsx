@@ -1,5 +1,5 @@
 import { randomArray } from '@utils/common'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { SuggestMangaCard } from './SuggestMangaCard'
 import { cardSize } from '@constants/card'
 const MAX_PAGE = 3

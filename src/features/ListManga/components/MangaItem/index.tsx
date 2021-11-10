@@ -3,11 +3,7 @@ import { SmallMangaCard } from '@components/MangaCard/SmallMangaCard'
 import { formatTimeDiff, resolveChapterPath, resolveMangaPath } from '@utils/common'
 import React from 'react'
 import { Link } from 'react-router-dom'
-export interface MangaItemProps extends MangaCardProps {
-  chapters: Chapter[]
-  // redirect: (path: string) => void
-  slug: string
-}
+export type MangaItemProps = MangaCardProps & Pick<Entity.Manga, 'slug' | 'chapters'>
 const MangaItem: React.FC<MangaItemProps> = (props) => {
   const { chapterName, lastUpdated, name, coverURL, chapters, /* redirect, */ slug } = props
   return (

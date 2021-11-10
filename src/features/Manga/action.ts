@@ -36,26 +36,7 @@ export const fetchMangaInfo = gql`
 `
 
 export interface MangaInfoData {
-  manga: Nullable<
-    Manga & {
-      id: string
-      chapters: Chapter[]
-      artist: {
-        name: string
-        slug: string
-      }
-      categories: Array<{
-        slug: string
-        title: string
-      }>
-      groups: Array<{
-        name: string
-      }>
-      status: string
-      description?: string
-      isFollowing: boolean
-    }
-  >
+  manga: Entity.Manga
 }
 
 export interface MangaInfoVariables {
