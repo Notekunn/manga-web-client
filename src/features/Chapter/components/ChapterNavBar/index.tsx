@@ -8,55 +8,55 @@ import {
   FaUserPlus,
   FaUserMinus,
 } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
+
 export interface ChapterNavBarProps {
-  state: 'FIXED' | 'HIDE' | 'STATIC'
-}
-interface ListStyle {
-  [key: string]: React.CSSProperties
-}
-const styles: ListStyle = {
-  STATIC: {
-    position: 'static',
-    top: 'auto',
-  },
-  FIXED: {
-    position: 'fixed',
-    top: '0px',
-  },
-  HIDE: {
-    display: 'none',
-  },
+  listChapterName: string[]
+  currentChapter: Entity.ChapterLink
+  prevChapter?: Entity.ChapterLink
+  nextChapter?: Entity.ChapterLink
 }
 
-const ChapterNavBar = React.forwardRef<HTMLHeadingElement, ChapterNavBarProps>((props, ref) => {
+const ChapterNavBar = React.memo<ChapterNavBarProps>((props, ref) => {
+  const { currentChapter, listChapterName, prevChapter, nextChapter } = props
+  console.log('NAV RE-RENDER')
   const [following, setFollowing] = useState(false)
   return (
-    <div
-      className="bg-gray-100 w-full flex justify-center items-center py-2"
-      style={styles[props.state]}
-      ref={ref}
-    >
+    <div className="bg-gray-100 flex justify-center items-center py-2 sticky">
       <div className="mx-1">
-        <FaHome color="#AE4AD9" size="1.5em" />
+        <Link to="/">
+          <FaHome color="#AE4AD9" size="1.5em" />
+        </Link>
       </div>
       <div className="mx-1">
-        <FaListUl color="#AE4AD9" size="1.5em" />
+        <Link to="./#lis">
+          <FaListUl color="#AE4AD9" size="1.5em" />
+        </Link>
       </div>
-      <div className="p-1 mx-1 rounded-md bg-[#61B736]">
-        <FaAngleLeft size="1.5em" color="white" />
-      </div>
+      {prevChapter && (
+        <div className="p-1 mx-1 rounded-md bg-[#61B736]">
+          <Link to={`../chuong-${prevChapter.chapterName}/${prevChapter.id}`}>
+            <FaAngleLeft size="1.5em" color="white" />
+          </Link>
+        </div>
+      )}
       <select
-        id="country"
-        name="country"
+        id="chapter"
+        name="chapter"
+        value={currentChapter.chapterName}
         className="mx-1 py-[6px] md:w-1/4 sm:flex-shrink-0 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
       >
-        {makeArray(100).map((e) => (
-          <option>Chapter {101 - e}</option>
+        {listChapterName.map((e) => (
+          <option value={e}>Chapter {e}</option>
         ))}
       </select>
-      <div className="p-1 mx-1 rounded-md bg-[#61B736]">
-        <FaAngleRight size="1.5em" color="white" />
-      </div>{' '}
+      {nextChapter && (
+        <div className="p-1 mx-1 rounded-md bg-[#61B736]">
+          <Link to={`../chuong-${nextChapter.chapterName}/${nextChapter.id}`}>
+            <FaAngleRight size="1.5em" color="white" />
+          </Link>
+        </div>
+      )}
       <button
         className="py-1 px-2 mx-1 rounded-md text-white flex items-center"
         onClick={() => setFollowing(!following)}
@@ -71,5 +71,9 @@ const ChapterNavBar = React.forwardRef<HTMLHeadingElement, ChapterNavBarProps>((
       </button>
     </div>
   )
-})
+}) /* ,
+  (prev, next) => {
+    return prev.currentChapter !== next.currentChapter || prev.state !== next.state
+  } */
+
 export default ChapterNavBar

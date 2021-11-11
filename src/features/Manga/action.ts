@@ -25,6 +25,7 @@ export const fetchMangaInfo = gql`
         name
       }
       chapters {
+        id
         chapterName
         chapterFullName
         viewCount

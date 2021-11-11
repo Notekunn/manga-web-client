@@ -17,7 +17,7 @@ export default function ListManga() {
         {data?.mangas.map((item, i) => (
           <MangaItem
             chapterName={item.chapters[0]?.chapterName}
-            key={i + 100}
+            key={`list-manga-${i}`}
             name={item.name}
             coverURL={item.coverURL}
             lastUpdated={item.lastUpdated}

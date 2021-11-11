@@ -25,11 +25,10 @@ const MangaItem: React.FC<MangaItemProps> = (props) => {
       </Link>
       {chapters.map((e) => (
         <div className="pr-2 py-1 mx-2 flex justify-between items-baseline">
-          <div
-            className="text-sm leading-3 font-tahoma"
-            // onClick={() => redirect(resolveChapterPath(slug, chapterName))}
-          >
-            <Link to={resolveChapterPath(slug, chapterName)}>Chapter {e.chapterName}</Link>
+          <div className="text-sm leading-3 font-tahoma">
+            <Link to={`/truyen-tranh/${slug}/chuong-${e.chapterName}/${e.id}`}>
+              Chapter {e.chapterName}
+            </Link>
           </div>
           <div className="italic text-xs font-tahoma text-warmGray-300">
             {formatTimeDiff(new Date(e.lastUpdated), new Date())}

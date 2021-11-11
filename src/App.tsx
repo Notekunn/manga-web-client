@@ -13,7 +13,7 @@ function App() {
         <div className="bg-black">
           <TopBar />
           <Switch>
-            <Route path="/truyen-tranh/:slug/chuong-:chapterName" exact>
+            <Route path="/truyen-tranh/:slug/chuong-:chapterName/:chapterId" exact>
               <ChapterInfo />
             </Route>
             <Route path="/truyen-tranh/:slug" exact>

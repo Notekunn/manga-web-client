@@ -1,40 +1,41 @@
+import { makeArray } from '@utils/common'
 import React, { useLayoutEffect, useRef, useState } from 'react'
 import { FaInfoCircle } from 'react-icons/fa'
-import { /* useHistory, */ useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import ChapterNavBar from '../components/ChapterNavBar'
+import { FETCH_INFO_CHAPTER, ChapterInfoData, ChapterInfoVariable } from '../action'
+import { useQuery } from '@apollo/client'
+import { Loading } from '@components/Loading'
 interface RouteParameter {
   slug: string
   chapterName: string
+  chapterId: string
 }
 
 const ChapterInfo: React.FC<{}> = () => {
-  // const history = useHistory()
-  const { /* slug, */ chapterName } = useParams<RouteParameter>()
-  const [navShowing, setNavShowing] = useState(false)
-  const ref = useRef<HTMLHeadingElement>(null)
-  // const onClick = () => {
-  //   history.push('./')
-  // }
-  useLayoutEffect(() => {
-    const onScroll = () => {
-      const navPosition = ref.current?.getBoundingClientRect().top || Number.NEGATIVE_INFINITY
-      if (navPosition <= 0) {
-        console.log('Show nav')
-        setNavShowing(true)
-      } else {
-        console.log('Hide nav')
-        setNavShowing(false)
-      }
+  const history = useHistory()
+  const { slug, chapterName, chapterId } = useParams<RouteParameter>()
+
+  const { data, loading, error } = useQuery<ChapterInfoData, ChapterInfoVariable>(
+    FETCH_INFO_CHAPTER,
+    {
+      variables: {
+        chapterId: parseInt(chapterId),
+      },
     }
-
-    window.addEventListener('scroll', onScroll)
-
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  )
+  if (loading) return <Loading />
+  if (error || !data) {
+    history.replace('/')
+    return null
+  }
+  const { chapter } = data
+  if (!chapter || chapter.chapterName !== chapterName || chapter.manga.slug !== slug) {
+    return null
+  }
   return (
     <>
-      <ChapterNavBar state={navShowing ? 'FIXED' : 'HIDE'} />
       <div className="bg-white w-4/5 mx-auto min-h-screen h-[1000vh]">
         <nav className="bg-grey-light rounded font-sans w-full p-3">
           <ol className="flex text-lightBlue-500">
@@ -83,7 +84,16 @@ const ChapterInfo: React.FC<{}> = () => {
             </span>
           </div>
         </div>
-        <ChapterNavBar state="STATIC" ref={ref} />
+        <ChapterNavBar
+          currentChapter={{
+            chapterName: chapter.chapterName,
+            id: chapter.id,
+          }}
+          listChapterName={makeArray(100).map((e) => `${e}`)}
+          prevChapter={chapter.prevChapter}
+          nextChapter={chapter.nextChapter}
+        />
+        AAAAAAAAAAAAAAAAAAAAAAAAAAA
       </div>
     </>
   )

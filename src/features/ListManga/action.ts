@@ -10,6 +10,7 @@ export const fetchListManga = gql`
       coverURL
       slug
       chapters(limit: 3) {
+        id
         chapterName
         lastUpdated
       }

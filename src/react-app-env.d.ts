@@ -4,7 +4,10 @@ type RemoveProps<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 type Nullable<T> = T | null
 
+type RecordPartial<K extends string | number | symbol, T> = { [P in K]?: T }
+
 declare namespace Entity {
+  type ChapterLink = Pick<Entity.Chapter, 'id' | 'chapterName'>
   interface User {
     id: number
     username: string

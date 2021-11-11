@@ -28,7 +28,7 @@ const MangaInfo: React.FC<{}> = React.memo(() => {
 
   if (loading) return <Loading />
   if (!data?.manga) {
-    history.goBack()
+    history.replace('/')
     return null
   }
   const {
@@ -171,7 +171,7 @@ const MangaInfo: React.FC<{}> = React.memo(() => {
             {chapters.map((e) => (
               <div className="grid grid-cols-[2fr,1fr,1fr] cursor-pointer border-dashed border-b-[1px] border-gray-400 px-2 py-1">
                 <div>
-                  <Link to={`/truyen-tranh/${slug}/chuong-${e.chapterName}`}>
+                  <Link to={`/truyen-tranh/${slug}/chuong-${e.chapterName}/${e.id}`}>
                     Chapter {e.chapterName}
                     {e.chapterFullName && ' - '}
                     {e.chapterFullName}
