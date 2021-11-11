@@ -1,4 +1,3 @@
-import { makeArray } from '@utils/common'
 import React, { useState } from 'react'
 import {
   FaHome,
@@ -11,25 +10,25 @@ import {
 import { Link } from 'react-router-dom'
 
 export interface ChapterNavBarProps {
-  listChapterName: string[]
+  listChapter: Entity.ChapterLink[]
   currentChapter: Entity.ChapterLink
   prevChapter?: Entity.ChapterLink
   nextChapter?: Entity.ChapterLink
 }
 
 const ChapterNavBar = React.memo<ChapterNavBarProps>((props, ref) => {
-  const { currentChapter, listChapterName, prevChapter, nextChapter } = props
+  const { currentChapter, listChapter, prevChapter, nextChapter } = props
   console.log('NAV RE-RENDER')
   const [following, setFollowing] = useState(false)
   return (
-    <div className="bg-gray-100 flex justify-center items-center py-2 sticky">
+    <div className="bg-gray-100 w-auto flex justify-center items-center py-2 sticky top-0 left-0 z-50">
       <div className="mx-1">
         <Link to="/">
           <FaHome color="#AE4AD9" size="1.5em" />
         </Link>
       </div>
       <div className="mx-1">
-        <Link to="./#lis">
+        <Link to="../#list-chapter">
           <FaListUl color="#AE4AD9" size="1.5em" />
         </Link>
       </div>
@@ -43,11 +42,11 @@ const ChapterNavBar = React.memo<ChapterNavBarProps>((props, ref) => {
       <select
         id="chapter"
         name="chapter"
-        value={currentChapter.chapterName}
+        value={currentChapter.id}
         className="mx-1 py-[6px] md:w-1/4 sm:flex-shrink-0 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
       >
-        {listChapterName.map((e) => (
-          <option value={e}>Chapter {e}</option>
+        {listChapter.map((e) => (
+          <option value={e.id}>Chapter {e.chapterName}</option>
         ))}
       </select>
       {nextChapter && (

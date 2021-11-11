@@ -1,12 +1,12 @@
-import { makeArray } from '@utils/common'
-import React, { useLayoutEffect, useRef, useState } from 'react'
+import React from 'react'
 import { FaInfoCircle } from 'react-icons/fa'
 import { useHistory, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import ChapterNavBar from '../components/ChapterNavBar'
+import ScrollToTop from '../components/ScrollToTop'
+import { Loading } from '@components/Loading'
 import { FETCH_INFO_CHAPTER, ChapterInfoData, ChapterInfoVariable } from '../action'
 import { useQuery } from '@apollo/client'
-import { Loading } from '@components/Loading'
 interface RouteParameter {
   slug: string
   chapterName: string
@@ -31,14 +31,15 @@ const ChapterInfo: React.FC<{}> = () => {
     return null
   }
   const { chapter } = data
-  if (!chapter || chapter.chapterName !== chapterName || chapter.manga.slug !== slug) {
-    return null
-  }
+  if (!chapter || chapter.chapterName !== chapterName) return null
+
+  const manga = chapter.manga
+  if (manga.slug !== slug) return null
   return (
     <>
       <div className="bg-white w-4/5 mx-auto min-h-screen h-[1000vh]">
         <nav className="bg-grey-light rounded font-sans w-full p-3">
-          <ol className="flex text-lightBlue-500">
+          <ol className="flex text-blue-500">
             <li>
               <Link to={'/'}>Trang chủ</Link>
             </li>
@@ -46,22 +47,31 @@ const ChapterInfo: React.FC<{}> = () => {
               <span className="mx-2">/</span>
             </li>
             <li>
-              <Link to={'/the-loai'}>Thể loại</Link>
+              <Link to={'/search'}>Thể loại</Link>
             </li>
             <li>
               <span className="mx-2">/</span>
             </li>
             <li>
-              <Link to={'#'}>Bảy viên ngọc rồng</Link>
-            </li>{' '}
+              <Link to={`/truyen-tranh/${slug}`}>{manga.name}</Link>
+            </li>
             <li>
               <span className="mx-2">/</span>
             </li>
             <li>
-              <Link to={'#'}>Chapter {chapterName}</Link>
+              <Link to={'#'}>Chương {chapterName}</Link>
             </li>
           </ol>
         </nav>
+        <div className="flex items-baseline">
+          <h1 className="p-2 pt-0 font-tahoma font-medium text-xl">
+            <Link to={'#'} className=" text-[#288AD6]">
+              {manga.name}
+            </Link>
+            <span> - Chương {chapterName}</span>
+          </h1>
+          <i className="text-trueGray-600 text-sm italic">[Cập nhật lúc: 18:48 08/11/2021]</i>
+        </div>
         <div className="bg-gray-100">
           <div className="text-center">
             <div>Nếu không xem được truyện vui lòng đổi "SERVER ẢNH" bên dưới</div>
@@ -89,12 +99,12 @@ const ChapterInfo: React.FC<{}> = () => {
             chapterName: chapter.chapterName,
             id: chapter.id,
           }}
-          listChapterName={makeArray(100).map((e) => `${e}`)}
+          listChapter={chapter.manga.chapters}
           prevChapter={chapter.prevChapter}
           nextChapter={chapter.nextChapter}
         />
-        AAAAAAAAAAAAAAAAAAAAAAAAAAA
       </div>
+      <ScrollToTop />
     </>
   )
 }

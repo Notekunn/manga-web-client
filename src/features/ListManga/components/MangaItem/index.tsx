@@ -1,6 +1,6 @@
 import type { MangaCardProps } from '@components/MangaCard'
 import { SmallMangaCard } from '@components/MangaCard/SmallMangaCard'
-import { formatTimeDiff, resolveChapterPath, resolveMangaPath } from '@utils/common'
+import { formatTimeDiff, resolveMangaPath } from '@utils/common'
 import React from 'react'
 import { Link } from 'react-router-dom'
 export type MangaItemProps = MangaCardProps & Pick<Entity.Manga, 'slug' | 'chapters'>
@@ -19,7 +19,6 @@ const MangaItem: React.FC<MangaItemProps> = (props) => {
           lastUpdated={lastUpdated}
           name={name}
           coverURL={coverURL}
-          // onClick={() => redirect(resolveMangaPath(slug))}
         />
         <div className="mx-2 py-2 font-bold break-words">{name}</div>
       </Link>

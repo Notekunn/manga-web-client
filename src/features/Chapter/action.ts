@@ -11,6 +11,12 @@ export const FETCH_INFO_CHAPTER = gql`
       viewCount
       manga {
         slug
+        name
+        isFollowing
+        chapters {
+          id
+          chapterName
+        }
       }
       prevChapter {
         id
@@ -20,17 +26,15 @@ export const FETCH_INFO_CHAPTER = gql`
         id
         chapterName
       }
-      isFollowing
     }
   }
 `
 
 export interface ChapterInfoData {
   chapter?: Entity.Chapter & {
-    manga: Pick<Entity.Manga, 'slug'>
+    manga: Pick<Entity.Manga, 'slug' | 'isFollowing' | 'name' | 'chapters'>
     prevChapter?: Entity.ChapterLink
     nextChapter?: Entity.ChapterLink
-    isFollowing: boolean
   }
 }
 
