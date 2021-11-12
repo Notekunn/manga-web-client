@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { FaInfoCircle } from 'react-icons/fa'
 import { useHistory, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
@@ -7,6 +7,8 @@ import ScrollToTop from '../components/ScrollToTop'
 import { Loading } from '@components/Loading'
 import { FETCH_INFO_CHAPTER, ChapterInfoData, ChapterInfoVariable } from '../action'
 import { useQuery } from '@apollo/client'
+import { Breadcrumb, BreadcrumbItemData } from '@components/Breadcrumb'
+import { createBreadcrumbChapter } from '@utils/common'
 interface RouteParameter {
   slug: string
   chapterName: string
@@ -25,6 +27,7 @@ const ChapterInfo: React.FC<{}> = () => {
       },
     }
   )
+
   if (loading) return <Loading />
   if (error || !data) {
     history.replace('/')
@@ -35,34 +38,12 @@ const ChapterInfo: React.FC<{}> = () => {
 
   const manga = chapter.manga
   if (manga.slug !== slug) return null
+  const breadcrumbItems = createBreadcrumbChapter(manga.name, manga.slug, chapter.chapterName)
+
   return (
     <>
       <div className="bg-white w-4/5 mx-auto min-h-screen h-[1000vh]">
-        <nav className="bg-grey-light rounded font-sans w-full p-3">
-          <ol className="flex text-blue-500">
-            <li>
-              <Link to={'/'}>Trang chủ</Link>
-            </li>
-            <li>
-              <span className="mx-2">/</span>
-            </li>
-            <li>
-              <Link to={'/search'}>Thể loại</Link>
-            </li>
-            <li>
-              <span className="mx-2">/</span>
-            </li>
-            <li>
-              <Link to={`/truyen-tranh/${slug}`}>{manga.name}</Link>
-            </li>
-            <li>
-              <span className="mx-2">/</span>
-            </li>
-            <li>
-              <Link to={'#'}>Chương {chapterName}</Link>
-            </li>
-          </ol>
-        </nav>
+        <Breadcrumb items={breadcrumbItems} />
         <div className="flex items-baseline">
           <h1 className="p-2 pt-0 font-tahoma font-medium text-xl">
             <Link to={'#'} className=" text-[#288AD6]">

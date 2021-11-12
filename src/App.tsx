@@ -2,13 +2,14 @@
 import React, { Suspense } from 'react'
 import TopBar from '@components/TopBar'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Loading } from '@components/Loading'
 const HomePage = React.lazy(() => import('@pages/HomePage'))
 const MangaInfo = React.lazy(() => import('@features/Manga/pages/MangaInfo'))
 const ChapterInfo = React.lazy(() => import('@features/Chapter/pages/ChapterInfo'))
 const LoginPage = React.lazy(() => import('@features/Auth/pages/LoginPage'))
 function App() {
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <Suspense fallback={<Loading />}>
       <Router>
         <div className="bg-black">
           <TopBar />

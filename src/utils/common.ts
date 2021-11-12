@@ -1,3 +1,5 @@
+import { BreadcrumbItemData } from '@components/Breadcrumb'
+
 export const formatTimeDiff = (start: Date, end: Date): string => {
   const second = Math.abs(Math.floor((end.getTime() - start.getTime()) / 1000))
   if (second < 60) return 'vừa đây'
@@ -42,4 +44,45 @@ export const resolveChapterPath = (slug: string, chapterName: string): string =>
 
 export const resolveMangaPath = (slug: string): string => {
   return `/truyen-tranh/${slug}/`
+}
+export const createBreadcrumbChapter = (
+  mangaName: string,
+  slug: string,
+  chapterName: string
+): BreadcrumbItemData[] => {
+  return [
+    {
+      name: 'Trang chủ',
+      url: '/',
+    },
+    {
+      name: 'Thể loại',
+      url: '/search',
+    },
+    {
+      name: mangaName,
+      url: `/truyen-tranh/${slug}/`,
+    },
+    {
+      name: `Chương ${chapterName}`,
+      url: '#',
+    },
+  ] as BreadcrumbItemData[]
+}
+
+export const createBreadcrumbManga = (mangaName: string): BreadcrumbItemData[] => {
+  return [
+    {
+      name: 'Trang chủ',
+      url: '/',
+    },
+    {
+      name: 'Thể loại',
+      url: '/search',
+    },
+    {
+      name: mangaName,
+      url: `#`,
+    },
+  ] as BreadcrumbItemData[]
 }

@@ -13,6 +13,8 @@ import { TopManga } from '@features/TopManga/components'
 import { LabelTag } from '@components/LabelTag'
 import { FaUser, FaRss, FaTags, FaEye, FaHeart, FaListUl } from 'react-icons/fa'
 import { FiFileText } from 'react-icons/fi'
+import { createBreadcrumbManga } from '@utils/common'
+import { Breadcrumb } from '@components/Breadcrumb'
 interface RouteParameter {
   slug: string
 }
@@ -48,27 +50,10 @@ const MangaInfo: React.FC<{}> = React.memo(() => {
       isFollowing,
     },
   } = data
+  const breadcrumbItems = createBreadcrumbManga(name)
   return (
     <div className="w-4/5 mx-auto bg-white">
-      <nav className="bg-grey-light rounded font-sans w-full p-3">
-        <ol className="flex text-lightBlue-500">
-          <li>
-            <Link to={'/'}>Trang chủ</Link>
-          </li>
-          <li>
-            <span className="mx-2">/</span>
-          </li>
-          <li>
-            <Link to={'/the-loai'}>Thể loại</Link>
-          </li>
-          <li>
-            <span className="mx-2">/</span>
-          </li>
-          <li>
-            <Link to={'#'}>{name}</Link>
-          </li>
-        </ol>
-      </nav>
+      <Breadcrumb items={breadcrumbItems} />
       <div className="flex">
         <div>
           <h1 className="text-center text-2xl">{name}</h1>
