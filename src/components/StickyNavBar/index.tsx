@@ -1,13 +1,12 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import { ALL_CATEGORIES } from '@constants/categories'
 import { FaCheck, FaEye, FaHistory, FaHome, FaRedo, FaTags, FaThumbsUp } from 'react-icons/fa'
 import { DropdownCategory } from './DropdownCategory'
 import { NavDropDownItem } from './NavDropDownItem'
 import { NavItem } from './NavItem'
-import { CategoriesData, FETCH_ALL_CATEGORIES } from '@features/Category/action'
+import { CategoryFeedData, FETCH_ALL_CATEGORIES } from '@features/Category/action'
 export const StickyNavBar = () => {
-  const { data, error } = useQuery<CategoriesData>(FETCH_ALL_CATEGORIES)
+  const { data, error } = useQuery<CategoryFeedData>(FETCH_ALL_CATEGORIES)
   return (
     <div className="w-full bg-custom-nav sticky top-0 z-10">
       <div className="w-4/5 mx-auto flex items-stretch pl-4 justify-start align-middle">

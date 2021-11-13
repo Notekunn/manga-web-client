@@ -20,6 +20,10 @@ module.exports = {
       ...defaultTheme.fontFamily,
       tahoma: 'Tahoma',
     },
+    borderWidth: {
+      ...defaultTheme.borderWidth,
+      '1': '1px',
+    },
   },
   variants: {
     extend: {},

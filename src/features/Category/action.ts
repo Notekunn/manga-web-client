@@ -11,6 +11,6 @@ export const FETCH_ALL_CATEGORIES = gql`
   }
 `
 
-export interface CategoriesData {
+export interface CategoryFeedData {
   categories: Entity.Category[]
 }
