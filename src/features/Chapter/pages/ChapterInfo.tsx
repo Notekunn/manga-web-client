@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { FaInfoCircle } from 'react-icons/fa'
 import { useHistory, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
@@ -7,7 +7,7 @@ import ScrollToTop from '../components/ScrollToTop'
 import { Loading } from '@components/Loading'
 import { FETCH_INFO_CHAPTER, ChapterInfoData, ChapterInfoVariable } from '../action'
 import { useQuery } from '@apollo/client'
-import { Breadcrumb, BreadcrumbItemData } from '@components/Breadcrumb'
+import { Breadcrumb } from '@components/Breadcrumb'
 import { createBreadcrumbChapter } from '@utils/common'
 interface RouteParameter {
   slug: string
@@ -70,7 +70,7 @@ const ChapterInfo: React.FC<{}> = () => {
             <div className="mx-1">
               <FaInfoCircle color="#31708f" />
             </div>
-            <span className="italic text-cyan-700 leading-4" style={{ fontFamily: 'Tahoma' }}>
+            <span className="italic text-cyan-700 leading-4 font-tahoma">
               Sử dụng mũi tên trái (←) hoặc phải (→) để chuyển chapter
             </span>
           </div>
