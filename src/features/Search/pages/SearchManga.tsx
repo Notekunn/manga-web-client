@@ -1,10 +1,11 @@
+import Select, { StylesConfig } from 'react-select'
+import { useSearchParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import { Breadcrumb, BreadcrumbItemData } from '@components/Breadcrumb'
 import { StickyNavBar } from '@components/StickyNavBar'
 import { CategoryFeed } from '@features/Category/components/CategoryFeed'
 import { CategoryFeedData, FETCH_ALL_CATEGORIES } from '@features/Category/action'
-import Select, { StylesConfig } from 'react-select'
-// import {} from 'react-router-dom'
+import { useEffect, useMemo, useRef } from 'react'
 const breadcrumbItems: BreadcrumbItemData[] = [
   {
     name: 'Trang chủ',
@@ -33,9 +34,52 @@ const colourStyles: StylesConfig<CategoryOption, true> = {
     },
   }),
 }
+
 function SearchMangaPage() {
   const { data } = useQuery<CategoryFeedData>(FETCH_ALL_CATEGORIES)
-  //   const nav = useSearchParams()
+  const ref = useRef<NodeJS.Timeout | null>(null)
+  const [searchParams, setSearchParams] = useSearchParams({})
+  const params = Object.fromEntries(searchParams.entries())
+  useEffect(() => {
+    console.log('Change')
+    if (ref.current != null) {
+      clearTimeout(ref.current)
+    }
+    ref.current = setTimeout(() => {
+      console.log('Submit form')
+    }, 1000)
+    return () => {
+      if (ref.current != null) {
+        clearTimeout(ref.current)
+      }
+    }
+  }, [params])
+
+  const handleChangeStatus: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
+    const value = event.target.value
+    if (value === 'ALL') {
+      delete params.status
+    } else {
+      params.status = value
+    }
+    setSearchParams(params)
+  }
+  const handleChangeKeyword: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    setSearchParams({
+      ...params,
+      keyword: event.target.value,
+    })
+  }
+  const categories = useMemo(() => {
+    const list = data?.categories || []
+    return list.map((e) => {
+      return {
+        value: e.slug,
+        label: e.title,
+      }
+    })
+  }, [data])
+  const selectedCategory = `${params.categories}`.split(',')
   return (
     <>
       <StickyNavBar />
@@ -56,6 +100,8 @@ function SearchMangaPage() {
                     id="keyword"
                     className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300"
                     placeholder="Từ khóa tìm kiếm"
+                    onChange={handleChangeKeyword}
+                    value={params.keyword}
                   />
                 </div>
                 <div className="flex items-center mt-1">
@@ -95,15 +141,16 @@ function SearchMangaPage() {
                 </label>
 
                 <Select
-                  options={(data?.categories || [])?.map((e) => {
-                    return {
-                      value: e.slug,
-                      label: e.title,
-                    }
-                  })}
+                  options={categories}
                   isMulti
                   name="category"
-                  onChange={(e) => console.log('A', e)}
+                  onChange={(e) => {
+                    setSearchParams({
+                      ...params,
+                      categories: e.map((e) => e.value).join(','),
+                    })
+                  }}
+                  value={categories.filter((e) => selectedCategory.includes(e.value))}
                   styles={colourStyles}
                 />
               </div>
@@ -114,7 +161,8 @@ function SearchMangaPage() {
                 </label>
                 <select
                   name="status"
-                  value="DONE"
+                  value={params.status || 'ALL'}
+                  onChange={handleChangeStatus}
                   className="rounded-md border-gray-300 shadow-sm block w-full sm:text-sm "
                 >
                   <option value="ALL">Tất cả</option>
@@ -122,19 +170,20 @@ function SearchMangaPage() {
                   <option value="ONGOING">Đang tiến hành</option>
                 </select>
               </div>
-              <div className="col-span-4 sm:col-span-1">
+              {/* <div className="col-span-4 sm:col-span-1">
                 <label htmlFor="sort" className="block text-sm font-medium text-gray-700 mb-1">
                   Sắp xếp theo
                 </label>
                 <select
                   name="sort"
+                  value=""
                   className="rounded-md border-gray-300 shadow-sm block w-full sm:text-sm "
                 >
                   <option value="">Đã hoàn thành</option>
                   <option value="">Đã hoàn thành</option>
                   <option value="">Đã hoàn thành</option>
                 </select>
-              </div>
+              </div> */}
             </div>
           </div>
           <CategoryFeed items={data?.categories || []} />
