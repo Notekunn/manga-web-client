@@ -10,6 +10,11 @@ module.exports = {
       ...colors,
       transparent: 'transparent',
       current: 'currentColor',
+      custom: {
+        purple: '#AE4AD9',
+        nav: '#EEEEEE',
+        gray: '#333333',
+      },
     },
     fontFamily: {
       ...defaultTheme.fontFamily,
@@ -21,5 +26,6 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms'), // import tailwind forms
+    require('@tailwindcss/line-clamp'),
   ],
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChildMangaCardProps, withMangaCardForwardRef } from '../MangaCard'
+import { ChildMangaCardProps, withMangaCardForwardRef } from '@components/MangaCard'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { formatTimeDiff } from '@utils/common'
 
