@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useHistory } from 'react-router'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaLock } from 'react-icons/fa'
 import { useMutation } from '@apollo/client'
 import { LOGIN_MUTATION, LoginData, LoginVariable } from '../action'
 import { Loading } from '@components/Loading'
 const LoginPage: React.FC<{}> = () => {
-  const history = useHistory()
-  // const routerQuery = new URLSearchParams(useLocation().search)
+  const navigate = useNavigate()
   const [username, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const [login, { data, loading, error }] = useMutation<LoginData, LoginVariable>(LOGIN_MUTATION)
@@ -27,8 +25,7 @@ const LoginPage: React.FC<{}> = () => {
   if (data?.login?.token) {
     localStorage.setItem('token', data.login.token)
     localStorage.setItem('tokenExpiration', data.login.tokenExpiration)
-    // history.push(routerQuery.get('redirect_url') || '/')
-    history.push('/')
+    navigate('/')
   }
   return (
     <div className="bg-white w-4/5 mx-auto min-h-screen">

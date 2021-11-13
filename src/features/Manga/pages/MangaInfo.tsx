@@ -1,6 +1,5 @@
 import React from 'react'
-import { useParams, useHistory } from 'react-router'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useMutation, useQuery } from '@apollo/client'
 import { MangaInfoData, MangaInfoVariables, fetchMangaInfo } from '../action'
 import {
@@ -15,12 +14,9 @@ import { FaUser, FaRss, FaTags, FaEye, FaHeart, FaListUl } from 'react-icons/fa'
 import { FiFileText } from 'react-icons/fi'
 import { createBreadcrumbManga } from '@utils/common'
 import { Breadcrumb } from '@components/Breadcrumb'
-interface RouteParameter {
-  slug: string
-}
 const MangaInfo: React.FC<{}> = React.memo(() => {
-  const history = useHistory()
-  const { slug } = useParams<RouteParameter>()
+  const navigate = useNavigate()
+  const { slug = '' } = useParams<'slug'>()
   const { data, loading, refetch } = useQuery<MangaInfoData, MangaInfoVariables>(fetchMangaInfo, {
     variables: {
       slug,
@@ -30,7 +26,7 @@ const MangaInfo: React.FC<{}> = React.memo(() => {
 
   if (loading) return <Loading />
   if (!data?.manga) {
-    history.replace('/')
+    navigate('/')
     return null
   }
   const {
@@ -91,9 +87,7 @@ const MangaInfo: React.FC<{}> = React.memo(() => {
                   </dt>
                   <dd className="flex flex-wrap justify-start content-between">
                     {categories.map((e) => (
-                      <LabelTag onClick={() => history.push(`/the-loai/${e.slug}`)}>
-                        {e.title}
-                      </LabelTag>
+                      <LabelTag onClick={() => navigate(`/the-loai/${e.slug}`)}>{e.title}</LabelTag>
                     ))}
                   </dd>
                 </div>

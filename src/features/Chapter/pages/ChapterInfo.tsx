@@ -1,6 +1,6 @@
 import React from 'react'
 import { FaInfoCircle } from 'react-icons/fa'
-import { useHistory, useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import ChapterNavBar from '../components/ChapterNavBar'
 import ScrollToTop from '../components/ScrollToTop'
@@ -9,28 +9,23 @@ import { FETCH_INFO_CHAPTER, ChapterInfoData, ChapterInfoVariable } from '../act
 import { useQuery } from '@apollo/client'
 import { Breadcrumb } from '@components/Breadcrumb'
 import { createBreadcrumbChapter } from '@utils/common'
-interface RouteParameter {
-  slug: string
-  chapterName: string
-  chapterId: string
-}
 
 const ChapterInfo: React.FC<{}> = () => {
-  const history = useHistory()
-  const { slug, chapterName, chapterId } = useParams<RouteParameter>()
+  const navigate = useNavigate()
+  const { slug, chapterName, chapterId } = useParams<'slug' | 'chapterName' | 'chapterId'>()
 
   const { data, loading, error } = useQuery<ChapterInfoData, ChapterInfoVariable>(
     FETCH_INFO_CHAPTER,
     {
       variables: {
-        chapterId: parseInt(chapterId),
+        chapterId: parseInt(chapterId || '0'),
       },
     }
   )
 
   if (loading) return <Loading />
   if (error || !data) {
-    history.replace('/')
+    navigate('/')
     return null
   }
   const { chapter } = data

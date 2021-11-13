@@ -4,6 +4,7 @@ import { StickyNavBar } from '@components/StickyNavBar'
 import { CategoryFeed } from '@features/Category/components/CategoryFeed'
 import { CategoryFeedData, FETCH_ALL_CATEGORIES } from '@features/Category/action'
 import Select, { StylesConfig } from 'react-select'
+// import {} from 'react-router-dom'
 const breadcrumbItems: BreadcrumbItemData[] = [
   {
     name: 'Trang chủ',
@@ -34,6 +35,7 @@ const colourStyles: StylesConfig<CategoryOption, true> = {
 }
 function SearchMangaPage() {
   const { data } = useQuery<CategoryFeedData>(FETCH_ALL_CATEGORIES)
+  //   const nav = useSearchParams()
   return (
     <>
       <StickyNavBar />
