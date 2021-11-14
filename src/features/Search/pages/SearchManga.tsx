@@ -7,8 +7,8 @@ import { StickyNavBar } from '@components/StickyNavBar'
 import { CategoryFeed } from '@features/Category/components/CategoryFeed'
 import { CategoryFeedData, FETCH_ALL_CATEGORIES } from '@features/Category/action'
 import { SortType, SORT_TYPE } from '@constants/manga'
-import { MangaFeed } from '@features/ListManga/components'
-import { MangaFilter } from '@features/ListManga/action'
+import { MangaFeed } from '@features/MangaFeed/components'
+import { MangaFilter } from '@features/MangaFeed/action'
 const breadcrumbItems: BreadcrumbItemData[] = [
   {
     name: 'Trang chủ',
@@ -112,7 +112,8 @@ function SearchMangaPage() {
       <StickyNavBar />
       <div className="bg-white max-w-[80%] mx-auto">
         <Breadcrumb items={breadcrumbItems} />
-        <div className="flex min-h-screen">
+        <div className="flex min-h-screen flex-row-reverse">
+          <CategoryFeed items={data?.categories || []} />
           <div className="w-auto flex-1">
             <div>
               <div className="text-center font-bold text-2xl">Tìm kiếm truyện tranh</div>
@@ -258,7 +259,6 @@ function SearchMangaPage() {
               </div>
             </div>
           </div>
-          <CategoryFeed items={data?.categories || []} />
         </div>
       </div>
     </>
