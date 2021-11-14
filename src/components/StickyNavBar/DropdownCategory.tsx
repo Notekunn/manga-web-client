@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 export interface DropdownCategoryProps {
   categories: Entity.Category[]
 }
@@ -9,14 +10,16 @@ export const DropdownCategory: React.FC<DropdownCategoryProps> = React.memo((pro
     <>
       <div className="grid w-[40rem] grid-cols-4" role="none">
         {categories.map((e, i) => (
-          <div
-            className="p-2 px-3 cursor-pointer hover:text-red-600"
-            key={`category-${i}`}
-            onMouseEnter={() => setHoverID(i)}
-            onMouseLeave={() => setHoverID(-1)}
-          >
-            {e.title}
-          </div>
+          <Link to={`/tim-truyen?categories=${e.slug}`}>
+            <div
+              className="p-2 px-3 cursor-pointer hover:text-red-600"
+              key={`category-${i}`}
+              onMouseEnter={() => setHoverID(i)}
+              onMouseLeave={() => setHoverID(-1)}
+            >
+              {e.title}
+            </div>
+          </Link>
         ))}
       </div>
       {hoverID !== -1 && (

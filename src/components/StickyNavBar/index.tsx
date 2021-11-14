@@ -19,7 +19,7 @@ export const StickyNavBar = () => {
         <NavItem>Hot</NavItem>
         <NavItem>Theo dõi</NavItem>
         <NavItem AfterIcon={FaHistory}>Lịch sử</NavItem>
-        <NavDropDownItem title="Thể loại" BeforeIcon={FaTags}>
+        <NavDropDownItem title={<Link to="/tim-truyen">Thể loại</Link>} BeforeIcon={FaTags}>
           <DropdownCategory categories={error ? [] : data?.categories || []} />
         </NavDropDownItem>
         <NavDropDownItem title="Xếp hạng">

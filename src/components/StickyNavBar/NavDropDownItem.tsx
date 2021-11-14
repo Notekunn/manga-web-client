@@ -2,7 +2,7 @@ import React from 'react'
 import { FaCaretDown } from 'react-icons/fa'
 import { NavItem, NavItemProps } from './NavItem'
 export interface NavDropDownItemProps extends NavItemProps {
-  title: string
+  title: React.ReactChild
 }
 export const NavDropDownItem: React.FC<NavDropDownItemProps> = (props) => {
   const { children, title, BeforeIcon } = props

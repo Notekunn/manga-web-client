@@ -7,7 +7,8 @@
             "@features/*": ["./features/*"],
             "@utils/*": ["./utils/*"],
             "@pages/*": ["./pages/*"],
-            "@constants/*": ["./constants/*"]
+            "@constants/*": ["./constants/*"],
+            "@assets/*": ["./assets/*"]
         }
     }
 }
