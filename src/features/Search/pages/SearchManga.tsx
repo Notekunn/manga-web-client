@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import Select, { StylesConfig } from 'react-select'
 import { useSearchParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
@@ -37,11 +37,11 @@ const colourStyles: StylesConfig<CategoryOption, true> = {
     },
   }),
 }
-
+type ParamType = Partial<Record<'categories' | 'keyword' | 'sort' | 'status' | 'page', string>>
 function SearchMangaPage() {
   const { data } = useQuery<CategoryFeedData>(FETCH_ALL_CATEGORIES)
   const [searchParams, setSearchParams] = useSearchParams({})
-  const params = Object.fromEntries(searchParams.entries())
+  const params = Object.fromEntries(searchParams.entries()) as ParamType
   const [filter, setFilter] = useState<MangaFilter>({
     categories: params.categories ? params.categories.split(',') : undefined,
     keyword: params.keyword,
@@ -49,7 +49,8 @@ function SearchMangaPage() {
     status: params.status as Entity.Manga['status'],
   })
   const ref = useRef<NodeJS.Timeout | null>(null)
-  useEffect(() => {
+  const page = +(params.page || '1')
+  useLayoutEffect(() => {
     console.log('Change')
     if (ref.current != null) {
       clearTimeout(ref.current)
@@ -72,6 +73,7 @@ function SearchMangaPage() {
   }, [window.location.href])
 
   const handleChangeStatus: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
+    delete params.page
     const value = event.target.value
     if (value === 'ALL') {
       delete params.status
@@ -83,12 +85,15 @@ function SearchMangaPage() {
   const handleChangeKeyword: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     setSearchParams({
       ...params,
+      page: '1',
       keyword: event.target.value,
     })
   }
   const handleChangeSortType: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
+    delete params.page
     setSearchParams({
       ...params,
+      page: '1',
       sort: event.target.value,
     })
   }
@@ -173,6 +178,7 @@ function SearchMangaPage() {
                     onChange={(e) => {
                       setSearchParams({
                         ...params,
+                        page: '1',
                         categories: e.map((e) => e.value).join(','),
                       })
                     }}
@@ -216,7 +222,40 @@ function SearchMangaPage() {
               </div>
             </div>
             <div className="mt-10 mb-5 mx-auto">
-              <MangaFeed pagination={{ page: 1, itemPerPage: 20 }} filter={filter} />
+              <MangaFeed
+                pagination={{
+                  page: page,
+                  itemPerPage: 20,
+                }}
+                filter={filter}
+              />
+            </div>
+            <div className="text-center mb-10">
+              <div className="inline-block border   border-gray-300 rounded-md shadow-sm text-md">
+                <button
+                  className="px-2 py-1 border-r rounded-md rounded-r-none disabled:opacity-50 hover:bg-gray-50 focus:ring-indigo-500 focus:ring-1"
+                  onClick={() => {
+                    setSearchParams({
+                      ...params,
+                      page: page - 1 + '',
+                    })
+                  }}
+                  disabled={page <= 1}
+                >
+                  Trang trước
+                </button>
+                <button
+                  className="px-2 py-1 rounded-l-none rounded-md disabled:opacity-50 hover:bg-gray-5 focus:ring-indigo-500 focus:ring-1"
+                  onClick={() => {
+                    setSearchParams({
+                      ...params,
+                      page: page + 1 + '',
+                    })
+                  }}
+                >
+                  Trang sau
+                </button>
+              </div>
             </div>
           </div>
           <CategoryFeed items={data?.categories || []} />

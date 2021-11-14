@@ -23,6 +23,7 @@ export interface MangaListData {
   mangas: Array<
     Pick<
       Entity.Manga,
+      | 'id'
       | 'name'
       | 'slug'
       | 'coverURL'
@@ -43,7 +44,7 @@ export interface MangaFilter {
 export interface MangaListVariable {
   filter?: MangaFilter
   pagination?: {
-    page: number
-    itemPerPage: number
+    page?: number
+    itemPerPage?: number
   }
 }
