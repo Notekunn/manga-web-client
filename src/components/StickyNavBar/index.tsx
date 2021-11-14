@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 export const StickyNavBar = () => {
   const { data, error } = useQuery<CategoryFeedData>(FETCH_ALL_CATEGORIES)
   return (
-    <div className="w-full bg-custom-nav sticky top-0 z-10">
+    <div className="w-full bg-custom-nav sticky top-[-1px] z-10">
       <div className="w-4/5 mx-auto flex items-stretch pl-4 justify-start align-middle">
         <div className="hover:bg-trueGray-50 h-10 w-10 flex items-center justify-center">
           <Link to="/">

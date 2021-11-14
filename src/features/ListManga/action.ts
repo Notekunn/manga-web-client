@@ -1,8 +1,9 @@
 import { gql } from '@apollo/client'
+import { SortType } from '@constants/manga'
 
-export const fetchListManga = gql`
-  query GetMangas {
-    mangas {
+export const FETCH_LIST_MANGA = gql`
+  query GetMangas($filter: MangaFilter, $pagination: OffsetPagination) {
+    mangas(filter: $filter, pagination: $pagination) {
       id
       name
       viewCount
@@ -18,7 +19,7 @@ export const fetchListManga = gql`
   }
 `
 
-export interface ApolloMangaList {
+export interface MangaListData {
   mangas: Array<
     Pick<
       Entity.Manga,
@@ -32,4 +33,17 @@ export interface ApolloMangaList {
       | 'lastUpdated'
     >
   >
+}
+export interface MangaFilter {
+  sort?: SortType
+  keyword?: string
+  status?: Entity.Manga['status']
+  categories?: string[]
+}
+export interface MangaListVariable {
+  filter?: MangaFilter
+  pagination?: {
+    page: number
+    itemPerPage: number
+  }
 }
