@@ -2,7 +2,7 @@ import { ApolloClient, createHttpLink, NormalizedCacheObject } from '@apollo/cli
 import { setContext } from '@apollo/client/link/context'
 import cache, { typeDefs } from './cache'
 const httpLink = createHttpLink({
-  uri: process.env.API_SERVER_URL || 'http://localhost:4000',
+  uri: process.env.REACT_APP_API_SERVER_URL || 'http://localhost:4000',
 })
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('token')
