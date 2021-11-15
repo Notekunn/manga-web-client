@@ -23,7 +23,7 @@ const MangaItem: React.FC<MangaItemProps> = (props) => {
         <div className="mx-2 py-2 font-bold break-words">{name}</div>
       </Link>
       {chapters.map((e) => (
-        <div className="pr-2 py-1 mx-2 flex justify-between items-baseline">
+        <div className="pr-2 py-1 mx-2 flex justify-between items-baseline" key={`chapter-${e.id}`}>
           <div className="text-sm leading-3 font-tahoma">
             <Link to={`/truyen-tranh/${slug}/chuong-${e.chapterName}/${e.id}`}>
               Chapter {e.chapterName}

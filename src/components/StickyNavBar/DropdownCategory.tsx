@@ -10,7 +10,7 @@ export const DropdownCategory: React.FC<DropdownCategoryProps> = React.memo((pro
     <>
       <div className="grid w-[40rem] grid-cols-4" role="none">
         {categories.map((e, i) => (
-          <Link to={`/tim-truyen?categories=${e.slug}`}>
+          <Link to={`/tim-truyen?categories=${e.slug}`} key={`category-${e.id}`}>
             <div
               className="p-2 px-3 cursor-pointer hover:text-red-600"
               key={`category-${i}`}
