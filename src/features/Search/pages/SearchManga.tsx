@@ -1,6 +1,6 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Select, { StylesConfig } from 'react-select'
-import { useSearchParams } from 'react-router-dom'
+// import { useSearchParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import { Breadcrumb, BreadcrumbItemData } from '@components/Breadcrumb'
 import { StickyNavBar } from '@components/StickyNavBar'
@@ -8,7 +8,8 @@ import { CategoryFeed } from '@features/Category/components/CategoryFeed'
 import { CategoryFeedData, FETCH_ALL_CATEGORIES } from '@features/Category/action'
 import { SortType, SORT_TYPE } from '@constants/manga'
 import { MangaFeed } from '@features/MangaFeed/components'
-import { MangaFilter } from '@features/MangaFeed/action'
+// import { MangaFilter } from '@features/MangaFeed/action'
+import { useSearchFilter } from '@hook/useSearchFilter'
 const breadcrumbItems: BreadcrumbItemData[] = [
   {
     name: 'Trang chủ',
@@ -37,33 +38,23 @@ const colourStyles: StylesConfig<CategoryOption, true> = {
     },
   }),
 }
-type ParamType = Partial<Record<'categories' | 'keyword' | 'sort' | 'status' | 'page', string>>
+// type ParamType = Partial<Record<'categories' | 'keyword' | 'sort' | 'status' | 'page', string>>
 function SearchMangaPage() {
+  const [{ page = 1, ...filter }, updateField] = useSearchFilter()
+  const { categories, keyword, status, sort } = filter
+  const [passFilter, setPassFilter] = useState(filter)
+
   const { data } = useQuery<CategoryFeedData>(FETCH_ALL_CATEGORIES)
-  const [searchParams, setSearchParams] = useSearchParams({})
-  const params = Object.fromEntries(searchParams.entries()) as ParamType
-  const [filter, setFilter] = useState<MangaFilter>({
-    categories: params.categories ? params.categories.split(',') : undefined,
-    keyword: params.keyword,
-    sort: params.sort as SortType,
-    status: params.status as Entity.Manga['status'],
-  })
   const ref = useRef<NodeJS.Timeout | null>(null)
-  const page = +(params.page || '1')
-  useLayoutEffect(() => {
+  useEffect(() => {
     console.log('Change')
     if (ref.current != null) {
       clearTimeout(ref.current)
     }
     ref.current = setTimeout(() => {
       console.log('Submit form')
-      setFilter({
-        categories: params.categories ? params.categories.split(',') : undefined,
-        keyword: params.keyword,
-        sort: params.sort as SortType,
-        status: params.status as Entity.Manga['status'],
-      })
-    }, 2000)
+      setPassFilter(filter)
+    }, 5000)
     return () => {
       if (ref.current != null) {
         clearTimeout(ref.current)
@@ -72,32 +63,7 @@ function SearchMangaPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [window.location.href])
 
-  const handleChangeStatus: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
-    delete params.page
-    const value = event.target.value
-    if (value === 'ALL') {
-      delete params.status
-    } else {
-      params.status = value
-    }
-    setSearchParams(params)
-  }
-  const handleChangeKeyword: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    setSearchParams({
-      ...params,
-      page: '1',
-      keyword: event.target.value,
-    })
-  }
-  const handleChangeSortType: React.ChangeEventHandler<HTMLSelectElement> = (event) => {
-    delete params.page
-    setSearchParams({
-      ...params,
-      page: '1',
-      sort: event.target.value,
-    })
-  }
-  const categories = useMemo(() => {
+  const categoryOptions = useMemo(() => {
     const list = data?.categories || []
     return list.map((e) => {
       return {
@@ -106,7 +72,7 @@ function SearchMangaPage() {
       }
     })
   }, [data])
-  const selectedCategory = `${params.categories}`.split(',')
+  const selectedCategory = categories || []
   return (
     <>
       <StickyNavBar />
@@ -129,8 +95,8 @@ function SearchMangaPage() {
                       id="keyword"
                       className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300"
                       placeholder="Từ khóa tìm kiếm"
-                      onChange={handleChangeKeyword}
-                      value={params.keyword}
+                      onChange={(event) => updateField('keyword', event.target.value)}
+                      value={keyword}
                     />
                   </div>
                   <div className="flex items-center mt-1">
@@ -157,8 +123,9 @@ function SearchMangaPage() {
                       type="text"
                       name="artist"
                       id="artist"
-                      className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300"
+                      className="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm border-gray-300 disabled:bg-gray-300"
                       placeholder="Tên tác giả"
+                      disabled
                     />
                   </div>
                 </div>
@@ -173,17 +140,16 @@ function SearchMangaPage() {
                   </label>
 
                   <Select
-                    options={categories}
+                    options={categoryOptions}
                     isMulti
                     name="category"
-                    onChange={(e) => {
-                      setSearchParams({
-                        ...params,
-                        page: '1',
-                        categories: e.map((e) => e.value).join(','),
-                      })
-                    }}
-                    value={categories.filter((e) => selectedCategory.includes(e.value))}
+                    onChange={(event) =>
+                      updateField(
+                        'categories',
+                        event.map((e) => e.value)
+                      )
+                    }
+                    value={categoryOptions.filter((e) => selectedCategory.includes(e.value))}
                     styles={colourStyles}
                   />
                 </div>
@@ -194,11 +160,13 @@ function SearchMangaPage() {
                   </label>
                   <select
                     name="status"
-                    value={params.status || 'ALL'}
-                    onChange={handleChangeStatus}
+                    value={status || ''}
+                    onChange={(event) =>
+                      updateField('status', event.target.value as Entity.Manga['status'])
+                    }
                     className="rounded-md border-gray-300 shadow-sm block w-full sm:text-sm "
                   >
-                    <option value="ALL">Tất cả</option>
+                    <option value="">Tất cả</option>
                     <option value="COMPLETED">Đã hoàn thành</option>
                     <option value="ONGOING">Đang tiến hành</option>
                   </select>
@@ -209,9 +177,9 @@ function SearchMangaPage() {
                   </label>
                   <select
                     name="sort"
-                    value={params.sort || 'LAST_UPDATE'}
+                    value={sort || 'LAST_UPDATE'}
                     className="rounded-md border-gray-300 shadow-sm block w-full sm:text-sm"
-                    onChange={handleChangeSortType}
+                    onChange={(event) => updateField('sort', event.target.value as SortType)}
                   >
                     {SORT_TYPE.map((e, i) => (
                       <option value={e.value} key={`sort-type-${i}`}>
@@ -225,34 +193,24 @@ function SearchMangaPage() {
             <div className="mt-10 mb-5 mx-auto">
               <MangaFeed
                 pagination={{
-                  page: page,
+                  page: +page,
                   itemPerPage: 20,
                 }}
-                filter={filter}
+                filter={passFilter}
               />
             </div>
             <div className="text-center mb-10">
               <div className="inline-block border   border-gray-300 rounded-md shadow-sm text-md">
                 <button
                   className="px-2 py-1 border-r rounded-md rounded-r-none disabled:opacity-50 hover:bg-gray-50 focus:ring-indigo-500 focus:ring-1"
-                  onClick={() => {
-                    setSearchParams({
-                      ...params,
-                      page: page - 1 + '',
-                    })
-                  }}
+                  onClick={() => updateField('page', +page - 1)}
                   disabled={page <= 1}
                 >
                   Trang trước
                 </button>
                 <button
                   className="px-2 py-1 rounded-l-none rounded-md disabled:opacity-50 hover:bg-gray-5 focus:ring-indigo-500 focus:ring-1"
-                  onClick={() => {
-                    setSearchParams({
-                      ...params,
-                      page: page + 1 + '',
-                    })
-                  }}
+                  onClick={() => updateField('page', +page + 1)}
                 >
                   Trang sau
                 </button>
