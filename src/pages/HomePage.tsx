@@ -1,5 +1,5 @@
 import { MangaFeed } from '@features/MangaFeed/components'
-import SuggestManga from '@features/SuggestManga/components'
+import { SuggestManga } from '@features/SuggestManga/components'
 import { SubscribeManga } from '@features/SubscribeManga/components'
 import { TopManga } from '@features/TopManga/components'
 import { StickyNavBar } from '@components/StickyNavBar'

@@ -17,7 +17,7 @@ const SAMPLE_SUGGEST_MANGA = Array(MAX_PAGE + 5)
       'http://st.imageinstant.net/data/comics/135/saijaku-teima-wa-gomi-hiroi-no-tabi-o-ha-7381.jpg',
     ]),
   }))
-const SuggestManga: React.FC<{}> = React.memo(() => {
+export const SuggestManga: React.FC<{}> = React.memo(() => {
   const [page, setPage] = useState(0)
   // const ref = useRef<HTMLDivElement>(null)
   // const parrent = useRef<HTMLDivElement>(null)
@@ -76,4 +76,3 @@ const SuggestManga: React.FC<{}> = React.memo(() => {
     </div>
   )
 })
-export default SuggestManga

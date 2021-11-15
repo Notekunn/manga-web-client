@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Suspense } from 'react'
-import TopBar from '@components/TopBar'
+import { TopBar } from '@components/TopBar'
 import { Route, Routes, Outlet } from 'react-router-dom'
 import { Loading } from '@components/Loading'
 const HomePage = React.lazy(() => import('@pages/HomePage'))

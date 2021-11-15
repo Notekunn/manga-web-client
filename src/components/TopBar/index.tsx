@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import { CheckLoginData, CHECK_LOGIN, logout } from '@features/Auth/action'
 import { useNavigate } from 'react-router-dom'
-import BGHeader from '../../assets/bg_header.png'
 import { useLiveSearch } from '../../hook/useLiveSearch'
+import BGHeader from '../../assets/bg_header.png'
 
 interface SearchItemProps {
   name: string
@@ -30,7 +30,7 @@ const SearchItem: React.FC<SearchItemProps> = ({ name, otherName, chapterName, c
     </div>
   )
 }
-export default function TopBar() {
+export function TopBar() {
   const [setKeyword, { mangas }] = useLiveSearch()
   const [txt, setTxt] = useState<string>('')
   const navigate = useNavigate()
