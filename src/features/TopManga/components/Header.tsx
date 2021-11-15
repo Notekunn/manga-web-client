@@ -9,19 +9,19 @@ export const TopMangaHeader: React.FC<TopMangaHeaderProps> = (props) => {
   return (
     <ul className="flex">
       <li
-        className={activeId === 1 ? 'py-2 px-6 active-tab' : 'py-2 px-6 disabled-tab'}
+        className={activeId === 1 ? 'active-tab' : 'disabled-tab'}
         onClick={() => changeActiveTab(1)}
       >
         Top Ngày
       </li>
       <li
-        className={activeId === 2 ? 'py-2 px-6 active-tab' : 'py-2 px-6 disabled-tab'}
+        className={activeId === 2 ? 'active-tab' : 'disabled-tab'}
         onClick={() => changeActiveTab(2)}
       >
         Top Tuần
       </li>
       <li
-        className={activeId === 3 ? 'py-2 px-6 active-tab' : 'py-2 px-6 disabled-tab'}
+        className={activeId === 3 ? 'active-tab' : 'disabled-tab'}
         onClick={() => changeActiveTab(3)}
       >
         Top Tháng

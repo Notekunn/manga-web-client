@@ -15,7 +15,7 @@ export const TopManga: React.FC<TopMangaProps> = memo(() => {
   return (
     <div className="p-2 flex flex-col flex-shrink-0">
       <TopMangaHeader activeId={activeTab} changeActiveTab={setActiveTab} />
-      <div className="flex flex-col">
+      <div className="flex flex-col border">
         {data?.topManga.map((e, i) => (
           <MangaItem
             lastChapter={e.manga.lastChapter?.chapterName}
@@ -24,6 +24,7 @@ export const TopManga: React.FC<TopMangaProps> = memo(() => {
             viewCount={e.view}
             order={i + 1}
             key={i}
+            slug={e.manga.slug}
           />
         ))}
       </div>
