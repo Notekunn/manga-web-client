@@ -1,12 +1,7 @@
 import React from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { useMutation, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { MangaInfoData, MangaInfoVariables, fetchMangaInfo } from '../action'
-import {
-  SUBSCRIBE_MANGA,
-  FollowMangaData,
-  FollowMangaVariable,
-} from '@features/SubscribeManga/action'
 import { Loading } from '@components/Loading'
 import { TopManga } from '@features/TopManga/components'
 import { LabelTag } from '@components/LabelTag'
@@ -14,38 +9,36 @@ import { FaUser, FaRss, FaTags, FaEye, FaHeart, FaListUl } from 'react-icons/fa'
 import { FiFileText } from 'react-icons/fi'
 import { createBreadcrumbManga } from '@utils/common'
 import { Breadcrumb } from '@components/Breadcrumb'
+import { useSubscribeManga } from '@hook/useSubscribeManga'
 const MangaInfo: React.FC<{}> = React.memo(() => {
   const navigate = useNavigate()
   const { slug = '' } = useParams<'slug'>()
-  const { data, loading, refetch } = useQuery<MangaInfoData, MangaInfoVariables>(fetchMangaInfo, {
+  const { data, loading } = useQuery<MangaInfoData, MangaInfoVariables>(fetchMangaInfo, {
     variables: {
       slug,
     },
   })
-  const [follow] = useMutation<FollowMangaData, FollowMangaVariable>(SUBSCRIBE_MANGA)
+
+  const [subscribed, subscribeManga] = useSubscribeManga(slug)
 
   if (loading) return <Loading />
   if (!data?.manga) {
-    navigate('/')
+    // navigate('/')
     return null
   }
   const {
-    manga: {
-      id,
-      artist,
-      categories,
-      chapters,
-      coverURL,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      groups,
-      lastUpdated,
-      name,
-      viewCount,
-      description,
-      status,
-      isFollowing,
-    },
-  } = data
+    artist,
+    categories,
+    chapters,
+    coverURL,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    groups,
+    lastUpdated,
+    name,
+    viewCount,
+    description,
+    status,
+  } = data?.manga || {}
   const breadcrumbItems = createBreadcrumbManga(name)
   return (
     <div className="w-4/5 mx-auto bg-white">
@@ -87,7 +80,12 @@ const MangaInfo: React.FC<{}> = React.memo(() => {
                   </dt>
                   <dd className="flex flex-wrap justify-start content-between">
                     {categories.map((e) => (
-                      <LabelTag onClick={() => navigate(`/the-loai/${e.slug}`)}>{e.title}</LabelTag>
+                      <LabelTag
+                        key={`category-${e.id}`}
+                        onClick={() => navigate(`/the-loai/${e.slug}`)}
+                      >
+                        {e.title}
+                      </LabelTag>
                     ))}
                   </dd>
                 </div>
@@ -105,19 +103,15 @@ const MangaInfo: React.FC<{}> = React.memo(() => {
               <div className="flex">
                 <button
                   className="p-2 bg-green-600 mr-2 rounded-md text-white flex items-center"
-                  onClick={() =>
-                    follow({
-                      variables: {
-                        mangaId: parseInt(id),
-                        unfollow: isFollowing,
-                      },
-                    }).then(() => refetch())
-                  }
+                  onClick={() => subscribeManga(!!subscribed)}
+                  style={{
+                    backgroundColor: !subscribed ? 'rgba(22, 163, 74)' : 'rgba(220, 38, 38)',
+                  }}
                 >
                   <div className="mr-1">
                     <FaHeart color="white" />
                   </div>
-                  {isFollowing ? 'Bỏ theo dõi' : 'Theo dõi'}
+                  {subscribed ? 'Bỏ theo dõi' : 'Theo dõi'}
                 </button>
                 <button className="p-2 bg-yellow-600 mr-1 rounded-md text-white">Đọc từ đầu</button>
                 <button className="p-2 bg-yellow-600 mr-1 rounded-md text-white">

@@ -63,7 +63,7 @@ declare namespace Entity {
     chapters: Chapter[]
     lastChapter?: Chapter
     lastReadChapter?: string
-    isFollowing: boolean
+    subscribed: boolean
   }
 
   interface Chapter {

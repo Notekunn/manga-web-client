@@ -11,8 +11,9 @@ import { Breadcrumb } from '@components/Breadcrumb'
 import { createBreadcrumbChapter } from '@utils/common'
 
 const ChapterInfo: React.FC<{}> = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const navigate = useNavigate()
-  const { slug, chapterName, chapterId } = useParams<'slug' | 'chapterName' | 'chapterId'>()
+  const { slug = '', chapterName, chapterId } = useParams<'slug' | 'chapterName' | 'chapterId'>()
 
   const { data, loading, error } = useQuery<ChapterInfoData, ChapterInfoVariable>(
     FETCH_INFO_CHAPTER,
@@ -25,7 +26,7 @@ const ChapterInfo: React.FC<{}> = () => {
 
   if (loading) return <Loading />
   if (error || !data) {
-    navigate('/')
+    // navigate('/')
     return null
   }
   const { chapter } = data
@@ -71,6 +72,7 @@ const ChapterInfo: React.FC<{}> = () => {
           </div>
         </div>
         <ChapterNavBar
+          slug={slug}
           currentChapter={{
             chapterName: chapter.chapterName,
             id: chapter.id,

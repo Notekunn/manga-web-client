@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import { useSubscribeManga } from '@hook/useSubscribeManga'
+import React from 'react'
 import {
   FaHome,
   FaListUl,
@@ -10,6 +11,7 @@ import {
 import { Link } from 'react-router-dom'
 
 export interface ChapterNavBarProps {
+  slug: string
   listChapter: Entity.ChapterLink[]
   currentChapter: Entity.ChapterLink
   prevChapter?: Entity.ChapterLink
@@ -18,8 +20,8 @@ export interface ChapterNavBarProps {
 
 const ChapterNavBar = React.memo<ChapterNavBarProps>((props, ref) => {
   const { currentChapter, listChapter, prevChapter, nextChapter } = props
-  console.log('NAV RE-RENDER')
-  const [following, setFollowing] = useState(false)
+
+  const [subscribed, subscribeManga] = useSubscribeManga(props.slug)
   return (
     <div className="bg-gray-100 w-auto flex justify-center items-center py-2 sticky top-0 left-0 z-50">
       <div className="mx-1">
@@ -58,15 +60,15 @@ const ChapterNavBar = React.memo<ChapterNavBarProps>((props, ref) => {
       )}
       <button
         className="py-1 px-2 mx-1 rounded-md text-white flex items-center"
-        onClick={() => setFollowing(!following)}
+        onClick={() => subscribeManga(subscribed)}
         style={{
-          backgroundColor: !following ? 'rgba(22, 163, 74)' : 'rgba(220, 38, 38)',
+          backgroundColor: !subscribed ? 'rgba(22, 163, 74)' : 'rgba(220, 38, 38)',
         }}
       >
         <div className="mr-1">
-          {following ? <FaUserMinus color="white" /> : <FaUserPlus color="white" />}
+          {subscribed ? <FaUserMinus color="white" /> : <FaUserPlus color="white" />}
         </div>
-        {following ? 'Bỏ theo dõi' : 'Theo dõi'}
+        {subscribed ? 'Bỏ theo dõi' : 'Theo dõi'}
       </button>
     </div>
   )

@@ -12,7 +12,7 @@ export const FETCH_INFO_CHAPTER = gql`
       manga {
         slug
         name
-        isFollowing
+        subscribed
         chapters {
           id
           chapterName
@@ -32,7 +32,7 @@ export const FETCH_INFO_CHAPTER = gql`
 
 export interface ChapterInfoData {
   chapter?: Entity.Chapter & {
-    manga: Pick<Entity.Manga, 'slug' | 'isFollowing' | 'name' | 'chapters'>
+    manga: Pick<Entity.Manga, 'slug' | 'subscribed' | 'name' | 'chapters'>
     prevChapter?: Entity.ChapterLink
     nextChapter?: Entity.ChapterLink
   }
