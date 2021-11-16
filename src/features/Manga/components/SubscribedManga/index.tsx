@@ -1,9 +1,9 @@
 import React from 'react'
-import { SubscribeMangaItem } from './SubscribeMangaItem'
-import { GET_SUBSCRIBED_MANGA, FollowedMangaData } from '@features/Manga/action'
 import { useQuery } from '@apollo/client'
-export interface SubscribeMangaProps {}
-export const SubscribeManga: React.FC<SubscribeMangaProps> = React.memo(() => {
+import { SubscribedMangaItem } from './SubscribeMangaItem'
+import { GET_SUBSCRIBED_MANGA, FollowedMangaData } from '@features/Manga/action'
+// export interface SubscribeMangaProps {}
+export const SubscribedManga: React.FC = React.memo(() => {
   const { loading, data } = useQuery<FollowedMangaData>(GET_SUBSCRIBED_MANGA)
   if (loading || data?.subscribedManga.length === 0) return null
   return (
@@ -14,7 +14,7 @@ export const SubscribeManga: React.FC<SubscribeMangaProps> = React.memo(() => {
           <span className="italic text-sm hover:underline cursor-pointer">Xem tất cả</span>
         </div>
         {data?.subscribedManga.map((item, i) => (
-          <SubscribeMangaItem
+          <SubscribedMangaItem
             coverURL={item.coverURL}
             lastChapter={item.lastChapter?.chapterName}
             lastUpdated={new Date(item.lastUpdated)}

@@ -5,10 +5,10 @@ export interface NavDropDownItemProps extends NavItemProps {
   title: React.ReactChild
 }
 export const NavDropDownItem: React.FC<NavDropDownItemProps> = (props) => {
-  const { children, title, BeforeIcon } = props
+  const { children, title, BeforeIcon, to } = props
   return (
     <div className="relative group">
-      <NavItem AfterIcon={FaCaretDown} BeforeIcon={BeforeIcon}>
+      <NavItem AfterIcon={FaCaretDown} BeforeIcon={BeforeIcon} to={to}>
         {title}
       </NavItem>
       <div

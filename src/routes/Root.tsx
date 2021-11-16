@@ -8,6 +8,7 @@ const MangaInfo = React.lazy(() => import('@features/Manga/pages/MangaInfo'))
 const ChapterInfo = React.lazy(() => import('@features/Chapter/pages/ChapterInfo'))
 const SearchMangaPage = React.lazy(() => import('@features/Manga/pages/SearchManga'))
 const LoginPage = React.lazy(() => import('@features/Auth/pages/LoginPage'))
+const SubscribedMangaPage = React.lazy(() => import('@features/Manga/pages/SubscribedManga'))
 export function RootRouter() {
   return (
     <Suspense fallback={<Loading />}>
@@ -19,6 +20,7 @@ export function RootRouter() {
             element={<ChapterInfo />}
           />
           <Route path="/truyen-tranh/:slug" element={<MangaInfo />} />
+          <Route path="/theo-doi" element={<SubscribedMangaPage />} />
           <Route path="/tim-truyen" element={<SearchMangaPage />} />
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="*" element={<HomePage />} />

@@ -1,10 +1,9 @@
 import { MangaFeed } from '@features/MangaFeed/components'
 import { SuggestManga } from '@features/Manga/components/SuggestManga'
 import { TopManga } from '@features/Manga/components/TopManga'
-import { SubscribedManga } from '@features/Manga/components/SubscribedManga'
 import { StickyNavBar } from '@components/StickyNavBar'
 
-function HomePage() {
+function SubscribedMangaPage() {
   return (
     <>
       <StickyNavBar />
@@ -16,7 +15,6 @@ function HomePage() {
             <MangaFeed pagination={{ itemPerPage: 20, page: 1 }} />
           </div>
           <div className="flex flex-grow flex-shrink flex-col">
-            <SubscribedManga />
             <TopManga />
           </div>
         </div>
@@ -25,4 +23,4 @@ function HomePage() {
   )
 }
 
-export default HomePage
+export default SubscribedMangaPage

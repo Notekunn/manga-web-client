@@ -1,12 +1,12 @@
 import React from 'react'
 import { formatTimeDiff } from '@utils/common'
-export type SubscribeMangaItemProps = Pick<
+export type SubscribedMangaItemProps = Pick<
   Entity.Manga,
   'name' | 'coverURL' | 'lastReadChapter' | 'lastUpdated'
 > & {
   lastChapter?: string
 }
-export const SubscribeMangaItem: React.FC<SubscribeMangaItemProps> = (props) => {
+export const SubscribedMangaItem: React.FC<SubscribedMangaItemProps> = (props) => {
   const { name, coverURL, lastChapter, lastReadChapter, lastUpdated } = props
   return (
     <div className="flex last:border-0 border-b py-2 mx-2 items-center">
