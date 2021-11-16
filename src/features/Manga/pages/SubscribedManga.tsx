@@ -22,7 +22,7 @@ function SubscribedMangaPage() {
           <div className="flex-shrink-0 pb-5 self-center flex-1">
             <MangaFeed pagination={{ itemPerPage: 20, page: 1 }} />
           </div>
-          <div className="flex flex-shrink-0 flex-col">
+          <div className="flex flex-shrink-0 mx-2 flex-col">
             <TopManga />
           </div>
         </div>

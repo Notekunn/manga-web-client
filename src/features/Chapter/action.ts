@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-export const FETCH_INFO_CHAPTER = gql`
+export const GET_CHAPTER_INFO = gql`
   query Chapter($chapterId: Int!) {
     chapter(id: $chapterId) {
       id
@@ -30,6 +30,12 @@ export const FETCH_INFO_CHAPTER = gql`
   }
 `
 
+export const UPDATE_VIEW_CHAPTER = gql`
+  mutation UpdateView($chapterId: Int!) {
+    updateView(chapterId: $chapterId)
+  }
+`
+
 export interface ChapterInfoData {
   chapter?: Entity.Chapter & {
     manga: Pick<Entity.Manga, 'slug' | 'subscribed' | 'name' | 'chapters'>
@@ -39,5 +45,9 @@ export interface ChapterInfoData {
 }
 
 export interface ChapterInfoVariable {
+  chapterId: number
+}
+
+export interface UpdateViewChapterVariable {
   chapterId: number
 }

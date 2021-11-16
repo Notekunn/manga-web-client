@@ -13,9 +13,9 @@ export const TopManga: React.FC<TopMangaProps> = memo(() => {
     },
   })
   return (
-    <div className="p-2 flex flex-col flex-shrink-0">
+    <div className="flex flex-col flex-shrink-0 w-[20rem]">
       <TopMangaHeader activeId={activeTab} changeActiveTab={setActiveTab} />
-      <div className="flex flex-col border">
+      <div className="flex flex-col border ">
         {data?.topManga.map((e, i) => (
           <MangaItem
             lastChapter={e.manga.lastChapter?.chapterName}

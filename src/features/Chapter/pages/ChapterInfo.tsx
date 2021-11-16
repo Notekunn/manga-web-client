@@ -1,28 +1,38 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FaInfoCircle } from 'react-icons/fa'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import ChapterNavBar from '../components/ChapterNavBar'
 import ScrollToTop from '../components/ScrollToTop'
 import { Loading } from '@components/Loading'
-import { FETCH_INFO_CHAPTER, ChapterInfoData, ChapterInfoVariable } from '../action'
+import { GET_CHAPTER_INFO, ChapterInfoData, ChapterInfoVariable } from '../action'
 import { useQuery } from '@apollo/client'
 import { Breadcrumb } from '@components/Breadcrumb'
 import { createBreadcrumbChapter } from '@utils/common'
+import { useViewChapter } from '@hook/useViewChapter'
 
 const ChapterInfo: React.FC<{}> = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const navigate = useNavigate()
-  const { slug = '', chapterName, chapterId } = useParams<'slug' | 'chapterName' | 'chapterId'>()
+  const {
+    slug = '',
+    chapterName,
+    chapterId = 0,
+  } = useParams<'slug' | 'chapterName' | 'chapterId'>()
+  const [updateView] = useViewChapter(chapterId)
 
   const { data, loading, error } = useQuery<ChapterInfoData, ChapterInfoVariable>(
-    FETCH_INFO_CHAPTER,
+    GET_CHAPTER_INFO,
     {
       variables: {
         chapterId: parseInt(chapterId || '0'),
       },
     }
   )
+  useEffect(() => {
+    updateView()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   if (loading) return <Loading />
   if (error || !data) {

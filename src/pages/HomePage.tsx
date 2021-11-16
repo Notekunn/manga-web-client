@@ -15,7 +15,7 @@ function HomePage() {
             <span className="pt-3 pl-3 text-lg text-lightBlue-600">Truyện mới cập nhật</span>
             <MangaFeed pagination={{ itemPerPage: 20, page: 1 }} />
           </div>
-          <div className="flex flex-shrink-0 flex-col">
+          <div className="flex flex-shrink-0 items-center px-2 flex-col">
             <SubscribedManga />
             <TopManga />
           </div>
