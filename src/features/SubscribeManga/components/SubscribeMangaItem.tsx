@@ -9,13 +9,8 @@ export type SubscribeMangaItemProps = Pick<
 export const SubscribeMangaItem: React.FC<SubscribeMangaItemProps> = (props) => {
   const { name, coverURL, lastChapter, lastReadChapter, lastUpdated } = props
   return (
-    <div
-      className="flex border-b-[1px] p-2 border-solid border-gray-400 items-center"
-      style={{
-        borderBottomWidth: '1px',
-      }}
-    >
-      <img className="h-[4.5rem] w-[4.5rem]" src={coverURL} alt={name} />
+    <div className="flex last:border-0 border-b py-2 mx-2 items-center">
+      <img className="h-[4rem] w-[4rem]" src={coverURL} alt={name} />
       <div className="flex flex-col ml-4 flex-1 justify-center">
         <span className="text-black font-bold">{name}</span>
         <div className="flex justify-between">

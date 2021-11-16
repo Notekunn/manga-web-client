@@ -30,7 +30,6 @@ export const useSubscribeManga = (slug: string) => {
     return () => {}
   }, [updateData])
   const subscribeManga = (unsubscribe?: boolean) => {
-    console.log(unsubscribe, data)
     if (!data?.manga?.id) return
 
     doSubscribe({
