@@ -12,7 +12,7 @@ export const SubscribeMangaItem: React.FC<SubscribeMangaItemProps> = (props) => 
     <div className="flex last:border-0 border-b py-2 mx-2 items-center">
       <img className="h-[4rem] w-[4rem]" src={coverURL} alt={name} />
       <div className="flex flex-col ml-4 flex-1 justify-center">
-        <span className="text-black font-bold">{name}</span>
+        <span className="text-[#333333] font-bold">{name}</span>
         <div className="flex justify-between">
           <span className="text-gray-700">Chapter {lastChapter}</span>
           <span className="text-sm italic">{formatTimeDiff(lastUpdated, new Date())}</span>
