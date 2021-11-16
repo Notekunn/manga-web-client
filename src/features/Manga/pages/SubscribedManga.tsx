@@ -1,20 +1,28 @@
 import { MangaFeed } from '@features/MangaFeed/components'
-import { SuggestManga } from '@features/Manga/components/SuggestManga'
 import { TopManga } from '@features/Manga/components/TopManga'
 import { StickyNavBar } from '@components/StickyNavBar'
-
+import { Breadcrumb, BreadcrumbItemData } from '@components/Breadcrumb'
+const breadcrumbItems: BreadcrumbItemData[] = [
+  {
+    name: 'Trang chủ',
+    url: '/',
+  },
+  {
+    name: 'Theo dõi',
+    url: '#',
+  },
+]
 function SubscribedMangaPage() {
   return (
     <>
       <StickyNavBar />
       <div className="bg-white max-w-[80%] mx-auto">
-        <SuggestManga />
-        <div className="flex justify-center min-h-screen">
-          <div className="flex-grow flex-shrink pb-5">
-            <span className="pt-3 pl-3 text-lg text-lightBlue-600">Truyện mới cập nhật</span>
+        <Breadcrumb items={breadcrumbItems} />
+        <div className="flex justify-between min-h-screen">
+          <div className="flex-shrink-0 pb-5 self-center flex-1">
             <MangaFeed pagination={{ itemPerPage: 20, page: 1 }} />
           </div>
-          <div className="flex flex-grow flex-shrink flex-col">
+          <div className="flex flex-shrink-0 flex-col">
             <TopManga />
           </div>
         </div>

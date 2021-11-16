@@ -7,12 +7,7 @@ export type MangaItemProps = MangaCardProps & Pick<Entity.Manga, 'slug' | 'chapt
 const MangaItem: React.FC<MangaItemProps> = (props) => {
   const { chapterName, lastUpdated, name, coverURL, chapters, /* redirect, */ slug } = props
   return (
-    <div
-      className="flex flex-col"
-      style={{
-        width: '11rem',
-      }}
-    >
+    <div className="flex flex-col w-[11rem] mx-auto">
       <Link to={resolveMangaPath(slug)}>
         <SmallMangaCard
           chapterName={chapterName}
@@ -20,7 +15,7 @@ const MangaItem: React.FC<MangaItemProps> = (props) => {
           name={name}
           coverURL={coverURL}
         />
-        <div className="mx-2 py-2 font-bold break-words">{name}</div>
+        <div className="mx-2 py-1 font-bold break-words">{name}</div>
       </Link>
       {chapters.map((e) => (
         <div className="pr-2 py-1 mx-2 flex justify-between items-baseline" key={`chapter-${e.id}`}>

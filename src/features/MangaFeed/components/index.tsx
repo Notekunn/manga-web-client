@@ -15,7 +15,7 @@ export const MangaFeed: React.FC<MangaFeedProps> = (props) => {
   const mangas = data?.mangas || []
   return (
     <>
-      <div className={`grid auto-cols-min grid-cols-5 px-auto ${props.className}`}>
+      <div className={`grid grid-cols-4 mx-auto ${props.className}`}>
         {loading && <p>Loading...</p>}
         {mangas.map((item, i) => (
           <MangaItem
@@ -26,6 +26,7 @@ export const MangaFeed: React.FC<MangaFeedProps> = (props) => {
             lastUpdated={item.lastUpdated}
             chapters={item.chapters}
             slug={item.slug}
+            className="w-1/4"
           />
         ))}
       </div>
