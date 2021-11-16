@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
-import { MangaInfoData, MangaInfoVariables, fetchMangaInfo } from '../action'
+import { MangaInfoData, MangaInfoVariables, GET_MANGA_INFO } from '../action'
 import { Loading } from '@components/Loading'
-import { TopManga } from '@features/TopManga/components'
+import { TopManga } from '@features/Manga/components/TopManga'
 import { LabelTag } from '@components/LabelTag'
 import { FaUser, FaRss, FaTags, FaEye, FaHeart, FaListUl } from 'react-icons/fa'
 import { FiFileText } from 'react-icons/fi'
@@ -13,7 +13,7 @@ import { useSubscribeManga } from '@hook/useSubscribeManga'
 const MangaInfo: React.FC<{}> = React.memo(() => {
   const navigate = useNavigate()
   const { slug = '' } = useParams<'slug'>()
-  const { data, loading } = useQuery<MangaInfoData, MangaInfoVariables>(fetchMangaInfo, {
+  const { data, loading } = useQuery<MangaInfoData, MangaInfoVariables>(GET_MANGA_INFO, {
     variables: {
       slug,
     },

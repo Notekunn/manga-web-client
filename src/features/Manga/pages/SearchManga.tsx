@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Select, { StylesConfig } from 'react-select'
-// import { useSearchParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import { Breadcrumb, BreadcrumbItemData } from '@components/Breadcrumb'
 import { StickyNavBar } from '@components/StickyNavBar'
@@ -8,7 +7,6 @@ import { CategoryFeed } from '@features/Category/components/CategoryFeed'
 import { CategoryFeedData, FETCH_ALL_CATEGORIES } from '@features/Category/action'
 import { SortType, SORT_TYPE } from '@constants/manga'
 import { MangaFeed } from '@features/MangaFeed/components'
-// import { MangaFilter } from '@features/MangaFeed/action'
 import { useSearchFilter } from '@hook/useSearchFilter'
 const breadcrumbItems: BreadcrumbItemData[] = [
   {
@@ -54,7 +52,7 @@ function SearchMangaPage() {
     ref.current = setTimeout(() => {
       console.log('Submit form')
       setPassFilter(filter)
-    }, 5000)
+    }, 3000)
     return () => {
       if (ref.current != null) {
         clearTimeout(ref.current)

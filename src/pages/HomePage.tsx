@@ -1,7 +1,7 @@
 import { MangaFeed } from '@features/MangaFeed/components'
-import { SuggestManga } from '@features/SuggestManga/components'
-import { SubscribeManga } from '@features/SubscribeManga/components'
-import { TopManga } from '@features/TopManga/components'
+import { SuggestManga } from '@features/Manga/components/SuggestManga'
+import { TopManga } from '@features/Manga/components/TopManga'
+import { SubscribeManga } from '@features/Manga/components/SubscribedManga'
 import { StickyNavBar } from '@components/StickyNavBar'
 
 function HomePage() {

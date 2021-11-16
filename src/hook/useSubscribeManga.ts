@@ -4,13 +4,13 @@ import {
   SUBSCRIBE_MANGA,
   SubscribeData,
   SubscribeVariable,
-  FETCH_MANGA_SUBSCRIBE_INFO,
+  GET_MANGA_SUBSCRIBE_INFO,
   SubscibeInfoData,
   SubscibeInfoVariables,
 } from '@features/Manga/action'
 
 export const useSubscribeManga = (slug: string) => {
-  const { data } = useQuery<SubscibeInfoData, SubscibeInfoVariables>(FETCH_MANGA_SUBSCRIBE_INFO, {
+  const { data } = useQuery<SubscibeInfoData, SubscibeInfoVariables>(GET_MANGA_SUBSCRIBE_INFO, {
     variables: {
       slug,
     },

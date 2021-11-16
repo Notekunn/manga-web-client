@@ -1,11 +1,11 @@
 import React from 'react'
 import { SubscribeMangaItem } from './SubscribeMangaItem'
-import { FETCH_SUBSCRIBE_MANGA, FollowedMangaData } from '../action'
+import { GET_SUBSCRIBED_MANGA, FollowedMangaData } from '@features/Manga/action'
 import { useQuery } from '@apollo/client'
 export interface SubscribeMangaProps {}
 export const SubscribeManga: React.FC<SubscribeMangaProps> = React.memo(() => {
-  const { loading, data } = useQuery<FollowedMangaData>(FETCH_SUBSCRIBE_MANGA)
-  if (loading || data?.followedManga.length === 0) return null
+  const { loading, data } = useQuery<FollowedMangaData>(GET_SUBSCRIBED_MANGA)
+  if (loading || data?.subscribedManga.length === 0) return null
   return (
     <div className="p-2 mb-4 flex-shrink-0 text-[#333333]">
       <div className="flex flex-col border border-[#ecf0f1]">
@@ -13,7 +13,7 @@ export const SubscribeManga: React.FC<SubscribeMangaProps> = React.memo(() => {
           <span className="text-lg text-[#2980b9]">Truyện đang theo dõi</span>
           <span className="italic text-sm hover:underline cursor-pointer">Xem tất cả</span>
         </div>
-        {data?.followedManga.map((item, i) => (
+        {data?.subscribedManga.map((item, i) => (
           <SubscribeMangaItem
             coverURL={item.coverURL}
             lastChapter={item.lastChapter?.chapterName}
